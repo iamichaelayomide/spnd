@@ -287,11 +287,7 @@ function FormScreen({ title, description, step, onBack, children }: { title: str
 }
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>(() => {
-    const saved = loadState()
-    if (!saved.completed) return 'splash'
-    return saved.totalBalance > 0 ? 'home-funded' : 'home-empty'
-  })
+  const [screen, setScreen] = useState<Screen>('splash')
   const [form, setForm] = useState<FormState>(() => loadState())
 
   useEffect(() => {

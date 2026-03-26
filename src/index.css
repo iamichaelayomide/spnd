@@ -3476,3 +3476,83 @@ select {
 .flow-kicker-auth {
   margin-top: 72px;
 }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI", sans-serif;
+}
+
+.wallet-screen {
+  padding-top: 46px;
+}
+
+.intro-copy h1,
+.form-copy h1,
+.auth-copy h1,
+.sheet-header h1,
+.allocation-copy h1,
+.allocation-empty-copy h1,
+.card-form-copy h1,
+.amount-copy h1,
+.receipt-copy h1,
+.card-added-copy h1,
+.deposit-success-stage h1 {
+  font-size: 28px;
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.intro-copy p,
+.form-copy p,
+.auth-copy p,
+.sheet-helper,
+.allocation-copy p,
+.allocation-empty-copy p,
+.card-form-copy p,
+.amount-copy p,
+.receipt-copy p,
+.card-added-copy p,
+.deposit-success-stage p,
+.empty-panel p {
+  font-size: 15px;
+  line-height: 1.42;
+  color: #7d7483;
+}
+
+.intro-copy span,
+.flow-kicker,
+.wallet-label,
+.field-label {
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.primary-button,
+.wallet-primary,
+.wallet-secondary,
+.inline-add-button,
+.deposit-secondary {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.section-heading h2 {
+  font-size: 17px;
+  line-height: 1.24;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-heading button,
+.text-link,
+.auth-entry-link {
+  font-size: 15px;
+}
+
+.wallet-card h1,
+.allocation-empty-card strong,
+.allocation-balance-card strong {
+  font-size: 34px;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
