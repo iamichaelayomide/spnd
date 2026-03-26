@@ -3383,3 +3383,30 @@ select {
 .card-preview strong {
   font-weight: 600;
 }
+
+.form-screen .back-button,
+.auth-screen .back-button,
+.intro-screen .back-button,
+.add-card-screen .back-button,
+.card-success-screen .back-button,
+.amount-screen .back-button,
+.receipt-screen .back-button,
+.allocation-empty-screen > .back-button,
+.allocation-screen > .back-button {
+  position: absolute;
+  top: 88px;
+  left: 20px;
+}
+
+.slide-progress,
+.mini-progress,
+.auth-progress {
+  top: 92px;
+}
+
+.flow-kicker-card-form,
+.flow-kicker-card,
+.flow-kicker-centered,
+.flow-kicker-auth {
+  margin-top: 72px;
+}
