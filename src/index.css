@@ -3697,3 +3697,58 @@ body {
   min-height: 46px;
   height: 46px;
 }
+
+.success-screen {
+  justify-content: flex-start;
+  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
+.success-screen .success-stage {
+  min-height: 0;
+  justify-content: flex-start;
+  gap: 18px;
+  padding: 78px 0 12px;
+}
+
+.success-screen .success-art-card {
+  width: 236px;
+  height: 236px;
+  margin-top: 0;
+}
+
+.success-screen .success-image {
+  width: 186px;
+  height: 186px;
+}
+
+.success-screen .success-copy {
+  width: 240px;
+  margin-top: 0;
+}
+
+.success-screen .success-chip {
+  min-height: 26px;
+  padding: 0 12px;
+  font-size: 10px;
+}
+
+.success-screen .success-copy h1 {
+  font-size: 22px;
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+}
+
+.success-screen .success-copy p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.36;
+}
+
+.success-screen .bottom-action {
+  position: sticky;
+  left: auto;
+  right: auto;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  margin-top: auto;
+  padding-top: 16px;
+}
