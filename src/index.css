@@ -3482,7 +3482,7 @@ body {
 }
 
 .wallet-screen {
-  padding-top: 46px;
+  padding-top: 40px;
 }
 
 .intro-copy h1,
@@ -3496,10 +3496,10 @@ body {
 .receipt-copy h1,
 .card-added-copy h1,
 .deposit-success-stage h1 {
-  font-size: 28px;
-  line-height: 1.08;
+  font-size: 24px;
+  line-height: 1.12;
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
 }
 
 .intro-copy p,
@@ -3514,8 +3514,8 @@ body {
 .card-added-copy p,
 .deposit-success-stage p,
 .empty-panel p {
-  font-size: 15px;
-  line-height: 1.42;
+  font-size: 14px;
+  line-height: 1.38;
   color: #7d7483;
 }
 
@@ -3532,12 +3532,12 @@ body {
 .wallet-secondary,
 .inline-add-button,
 .deposit-secondary {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .section-heading h2 {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.24;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -3546,13 +3546,87 @@ body {
 .section-heading button,
 .text-link,
 .auth-entry-link {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .wallet-card h1,
 .allocation-empty-card strong,
 .allocation-balance-card strong {
-  font-size: 34px;
+  font-size: 30px;
   line-height: 1.02;
   letter-spacing: -0.04em;
+}
+
+.primary-button {
+  min-height: 48px;
+  height: 48px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(97, 22, 181, 0.16);
+}
+
+.intro-copy,
+.form-copy,
+.auth-copy {
+  padding-top: 82px;
+}
+
+.form-copy,
+.auth-copy {
+  margin-bottom: 18px;
+}
+
+.auth-copy p,
+.form-copy p,
+.intro-copy p {
+  max-width: 252px;
+}
+
+.passcode-stage,
+.passcode-stage-tight {
+  margin-top: 20px;
+}
+
+.passcode-stage-tight .passcode-dots,
+.passcode-dots {
+  margin-bottom: 20px;
+}
+
+.passcode-stage-tight .passcode-keypad,
+.passcode-keypad {
+  max-width: 244px;
+  gap: 14px;
+}
+
+.passcode-stage-tight .passcode-row,
+.passcode-row {
+  gap: 14px;
+}
+
+.passcode-key {
+  width: 52px;
+  height: 52px;
+  font-size: 20px;
+}
+
+.form-action,
+.bottom-action {
+  padding-top: 16px;
+}
+
+.auth-screen .bottom-action,
+.success-screen .bottom-action,
+.source-screen .bottom-action,
+.add-card-screen .bottom-action,
+.amount-screen .bottom-action,
+.card-success-screen .bottom-action,
+.receipt-screen .bottom-action,
+.deposit-success-screen .bottom-action {
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.auth-screen,
+.form-screen,
+.success-screen {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
