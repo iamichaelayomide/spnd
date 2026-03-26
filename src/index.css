@@ -3384,6 +3384,72 @@ select {
   font-weight: 600;
 }
 
+.wallet-screen {
+  padding-top: 22px;
+}
+
+.wallet-card {
+  margin-top: 8px;
+}
+
+.wallet-section {
+  margin-top: 20px;
+}
+
+.section-heading {
+  margin-bottom: 12px;
+}
+
+.empty-panel {
+  padding-top: 6px;
+}
+
+.bottom-action-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-entry-link {
+  padding: 0;
+  background: transparent;
+  color: #8c8086;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.auth-link-accent {
+  color: #6f38b2;
+  font-weight: 700;
+}
+
+.field-card,
+.country-card {
+  border: 1px solid transparent;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.field-card:focus-within,
+.country-card:focus-within {
+  border-color: rgba(111, 56, 178, 0.5);
+  box-shadow: 0 0 0 4px rgba(111, 56, 178, 0.1);
+  background: #fbf8fe;
+}
+
+.field-input {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.allocation-screen,
+.add-card-screen,
+.form-screen {
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+}
+
 .form-screen .back-button,
 .auth-screen .back-button,
 .intro-screen .back-button,

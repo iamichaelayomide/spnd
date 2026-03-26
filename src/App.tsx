@@ -461,10 +461,13 @@ export default function App() {
             <div className="art-card intro-art-card">
               <img className={currentSlide.imageClassName} src={currentSlide.image} alt="" />
             </div>
-            <div className="bottom-action">
+            <div className="bottom-action bottom-action-stack">
               <PrimaryButton onClick={() => setScreen(currentSlide.key === 'intro-setup' ? 'name' : INTRO_SCREENS[INTRO_SCREENS.indexOf(currentSlide.key) + 1])}>
                 {currentSlide.button}
               </PrimaryButton>
+              <button className="auth-entry-link" type="button" onClick={() => setScreen('phone')}>
+                Already have an account? <span className="auth-link-accent">Log in</span>
+              </button>
             </div>
           </div>
         </section>
@@ -499,7 +502,7 @@ export default function App() {
             </label>
             <label className="field-card field-card-phone"><span className="field-label">Mobile number</span><input className="field-input" value={form.phone} onChange={(event) => updateForm({ phone: event.target.value.replace(/\D/g, '').slice(0, 11) })} inputMode="numeric" placeholder="07032891651" /></label>
           </div>
-          <button className="text-link" type="button">Already have an account? Log in</button>
+          <button className="text-link auth-entry-link" type="button">Already have an account? <span className="auth-link-accent">Log in</span></button>
           <div className="form-action"><PrimaryButton onClick={submitPhone} disabled={form.phone.length !== 11}>Continue</PrimaryButton></div>
         </FormScreen>
       )
@@ -511,7 +514,7 @@ export default function App() {
           <OtpInput id="primary-otp" value={form.otp} onChange={(otp) => updateForm({ otp })} />
           <div className="otp-links">
             <button className="text-link" type="button" onClick={form.resendTimer === 0 ? () => updateForm({ otp: '', resendTimer: 14 }) : undefined}>{form.resendTimer === 0 ? 'Resend code now' : `Resend code in 00:${String(form.resendTimer).padStart(2, '0')}`}</button>
-            <button className="text-link" type="button">Already have an account? Log in</button>
+            <button className="text-link auth-entry-link" type="button">Already have an account? <span className="auth-link-accent">Log in</span></button>
           </div>
           <div className="form-action"><PrimaryButton onClick={submitOtp} disabled={form.otp.length !== 6}>Next</PrimaryButton></div>
         </FormScreen>
@@ -565,18 +568,9 @@ export default function App() {
     }
 
     if (screen === 'home-empty' || screen === 'home-funded') {
-      const walletIntroTitle = hasMoney ? 'Your wallet is ready to organize.' : 'Your wallet is empty.'
-      const walletIntroBody = hasMoney
-        ? 'Your balance is live. Next, you can allocate money into buckets.'
-        : 'Add funds to get started, then create buckets and track activity.'
-
       return (
         <div className="screen-content wallet-screen">
           <StatusBar />
-          <div className="wallet-page-head">
-            <span>SPND wallet</span>
-            <p>{walletIntroTitle} {walletIntroBody}</p>
-          </div>
           <div className={`wallet-card${hasMoney ? '' : ' wallet-card-empty'}`}>
             <div className="wallet-header-row">
               <div><span className="wallet-label">TOTAL BALANCE</span><h1>{formatCurrency(form.totalBalance)}</h1><p>{formatCurrency(form.unallocatedBalance)} unallocated</p></div>
