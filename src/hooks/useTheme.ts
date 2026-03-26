@@ -1,6 +1,6 @@
 import React from 'react'
 import { getTimeTheme, type TimeTheme } from '../utils/timeTheme'
-import { useAppState } from '../store/appState'
+import { useAppState } from '../store/useAppState'
 
 export function useThemeClass(isOnboarding: boolean): TimeTheme {
   const { state } = useAppState()

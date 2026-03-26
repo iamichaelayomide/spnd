@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { navigate } from '../../router/hashRouter'
 import { OnboardingHeader } from '../../components/layout/OnboardingHeader'
 import { loadUser, type NapTimePref } from '../../store/userStore'
-import { useAppState } from '../../store/appState'
+import { useAppState } from '../../store/useAppState'
 
 const options: Array<{ key: NapTimePref; icon: string; title: string }> = [
   { key: 'morning', icon: '☀️', title: 'Morning  ·  Before noon' },

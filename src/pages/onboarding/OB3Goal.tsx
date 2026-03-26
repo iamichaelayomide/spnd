@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { navigate } from '../../router/hashRouter'
 import { OnboardingHeader } from '../../components/layout/OnboardingHeader'
 import { loadUser, type UserGoal } from '../../store/userStore'
-import { useAppState } from '../../store/appState'
+import { useAppState } from '../../store/useAppState'
 
 const options: Array<{ key: UserGoal; icon: string; title: string; sub: string }> = [
   { key: 'sleep_better', icon: '🌙', title: 'Sleep better at night', sub: 'Improve your nighttime sleep quality' },

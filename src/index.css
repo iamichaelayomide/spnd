@@ -81,8 +81,9 @@ select {
   place-items: center;
   padding: 24px;
   background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.5), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(79, 29, 139, 0.07), transparent 30%),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.62), transparent 28%),
+    radial-gradient(circle at 80% 20%, rgba(112, 60, 178, 0.08), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(79, 29, 139, 0.08), transparent 30%),
     #d8c9c8;
 }
 
@@ -93,7 +94,9 @@ select {
   background: var(--surface);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow:
+    0 28px 70px rgba(37, 18, 54, 0.14),
+    0 8px 22px rgba(37, 18, 54, 0.08);
 }
 
 .phone-frame.splash {
@@ -1708,10 +1711,14 @@ select {
   width: 236px;
   height: 236px;
   border-radius: 30px;
-  background: linear-gradient(180deg, #faf5ff, #ffffff);
+  background:
+    radial-gradient(circle at top right, rgba(136, 88, 206, 0.14), transparent 28%),
+    linear-gradient(180deg, #fbf7ff, #ffffff);
   display: grid;
   place-items: center;
-  box-shadow: 0 20px 40px rgba(94, 42, 151, 0.12);
+  box-shadow:
+    0 24px 48px rgba(94, 42, 151, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .success-image {
@@ -1739,6 +1746,28 @@ select {
   text-transform: uppercase;
 }
 
+.wallet-page-head {
+  margin-top: 52px;
+  margin-bottom: 16px;
+}
+
+.wallet-page-head span {
+  display: block;
+  color: #6f38b2;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.wallet-page-head p {
+  margin: 8px 0 0;
+  color: #7f7287;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .success-copy h1 {
   margin: 14px 0 0;
   font-size: 16px;
@@ -1754,11 +1783,15 @@ select {
 
 .wallet-card {
   margin-top: 12px;
-  border-radius: 14px;
-  padding: 18px 16px 16px;
-  background: linear-gradient(180deg, #1f0b2d, #170722);
+  border-radius: 18px;
+  padding: 20px 18px 18px;
+  background:
+    radial-gradient(circle at top right, rgba(126, 70, 194, 0.18), transparent 30%),
+    linear-gradient(180deg, #20102f, #170722);
   color: #ffffff;
-  box-shadow: 0 24px 40px rgba(31, 11, 45, 0.15);
+  box-shadow:
+    0 24px 44px rgba(31, 11, 45, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .wallet-header-row {
@@ -1823,22 +1856,31 @@ select {
 }
 
 .wallet-secondary {
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff, #faf7fc);
   color: #3b3030;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
   font-size: 14px;
+  box-shadow: 0 8px 18px rgba(17, 8, 25, 0.08);
+}
+
+.wallet-secondary:disabled,
+.wallet-primary:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .wallet-primary {
   width: 100%;
   margin-top: 12px;
-  background: #4b1092;
+  background: linear-gradient(180deg, #5f1eb3, #4b1092);
   color: #ffffff;
   font-size: 14px;
   font-weight: 500;
+  box-shadow: 0 12px 24px rgba(82, 24, 151, 0.24);
 }
 
 .section-heading {
@@ -1909,10 +1951,12 @@ select {
 .bucket-card {
   min-height: 117px;
   position: relative;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 26px 12px 10px;
-  background: #ffffff;
-  box-shadow: 0 10px 22px rgba(27, 15, 40, 0.06);
+  background: linear-gradient(180deg, #ffffff, #fcfafe);
+  box-shadow:
+    0 12px 24px rgba(27, 15, 40, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .bucket-chip {
@@ -1997,16 +2041,26 @@ select {
   color: #3b3030;
 }
 
+.activity-amount-positive {
+  color: #1c8a46;
+  font-weight: 600;
+}
+
 .source-screen {
-  background: #c8bdd3;
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.32), transparent 28%),
+    #c8bdd3;
 }
 
 .sheet {
   margin-top: 46px;
   min-height: 488px;
-  border-radius: 10px;
-  background: #ffffff;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff, #fcfbfd);
   padding: 20px 14px;
+  box-shadow:
+    0 22px 36px rgba(56, 34, 76, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .sheet-header {
@@ -2024,6 +2078,25 @@ select {
   line-height: 1.35;
 }
 
+.flow-kicker {
+  margin-top: 4px;
+  color: #6f38b2;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.flow-kicker-centered {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.flow-kicker-auth {
+  margin-top: 54px;
+}
+
 .source-group {
   margin-top: 52px;
 }
@@ -2039,14 +2112,15 @@ select {
 .source-item {
   width: 100%;
   min-height: 49px;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
   text-align: left;
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff, #fcfbfd);
   border: 1px solid #eee5f2;
+  box-shadow: 0 8px 18px rgba(39, 18, 57, 0.04);
 }
 
 .source-item + .source-item {
@@ -2054,7 +2128,7 @@ select {
 }
 
 .source-item-link {
-  background: #f6eefc;
+  background: linear-gradient(180deg, #f8f1ff, #f5edfc);
   border-style: dashed;
 }
 
@@ -2103,11 +2177,20 @@ select {
   margin-top: 182px;
 }
 
+.sheet-note {
+  margin: 160px 4px 0;
+  color: #8c8086;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .card-added-image {
   width: 236px;
   height: 222px;
-  margin: 16px auto 0;
+  margin: 28px auto 0;
   display: block;
+  filter: drop-shadow(0 24px 32px rgba(81, 26, 145, 0.12));
 }
 
 .card-added-copy {
@@ -2115,9 +2198,52 @@ select {
   margin: 18px auto 0;
 }
 
-.amount-copy {
-  margin-top: 26px;
+.card-success-screen .back-button,
+.amount-screen .back-button {
+  position: absolute;
+  top: 74px;
+  left: 20px;
+}
+
+.flow-kicker-card {
+  margin-top: 58px;
   text-align: center;
+}
+
+.amount-copy {
+  margin-top: 58px;
+  text-align: center;
+}
+
+.source-summary,
+.deposit-review-card {
+  border-radius: 14px;
+  background: #f7f2fb;
+  border: 1px solid #eee4f5;
+}
+
+.source-summary {
+  margin-top: 24px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.source-summary span,
+.deposit-review-card span {
+  color: #8e8196;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.source-summary strong,
+.deposit-review-card strong {
+  color: #3b3030;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 600;
 }
 
 .close-button {
@@ -2140,8 +2266,9 @@ select {
   margin-top: 38px;
   padding: 0 16px;
   border: 1px solid #ede6ef;
-  border-radius: 4px;
-  background: #ffffff;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fcfbfd);
+  box-shadow: 0 10px 24px rgba(42, 18, 64, 0.05);
 }
 
 .amount-field span {
@@ -2169,9 +2296,15 @@ select {
   min-height: 24px;
   padding: 0 12px;
   border-radius: 999px;
-  background: #f3f0f1;
+  background: linear-gradient(180deg, #f7f4f6, #f1edf0);
   color: #6a6067;
   font-size: 12px;
+}
+
+.quick-amounts button.active {
+  background: #eadcf8;
+  color: #5e2ca2;
+  box-shadow: inset 0 0 0 1px #d4bdf2;
 }
 
 .amount-action {
@@ -2180,6 +2313,24 @@ select {
 
 .otp-resend-link {
   margin-top: 20px;
+}
+
+.deposit-review-card {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fbf7ff, #f5effb);
+  border: 1px solid #ece1f4;
+  box-shadow: 0 10px 22px rgba(52, 22, 84, 0.05);
+  display: grid;
+  gap: 12px;
+}
+
+.deposit-review-card div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .deposit-success-stage {
@@ -2206,9 +2357,11 @@ select {
 
 .receipt-card {
   margin-top: 28px;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 16px 32px rgba(42, 18, 64, 0.08);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #ffffff, #fcfbfd);
+  box-shadow:
+    0 18px 36px rgba(42, 18, 64, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
   padding: 10px 16px;
 }
 
@@ -2250,6 +2403,7 @@ select {
   height: 110px;
   display: block;
   margin: 0 auto;
+  filter: drop-shadow(0 18px 26px rgba(85, 36, 150, 0.16));
 }
 
 .deposit-success-stage h1 {
@@ -2259,10 +2413,11 @@ select {
 
 .deposit-amount-card {
   margin-top: 16px;
-  border-radius: 14px;
+  border-radius: 18px;
   padding: 16px;
-  background: #f4edfa;
+  background: linear-gradient(180deg, #faf6ff, #f3ebfb);
   text-align: center;
+  border: 1px solid #ece1f4;
 }
 
 .deposit-amount-card span {
@@ -2291,4 +2446,940 @@ select {
   background: #f0ebef;
   color: #3b3030;
   font-size: 14px;
+}
+
+/* Onboarding cleanup overrides */
+
+.splash-frame {
+  background: #31066b;
+}
+
+.splash-screen {
+  width: 100%;
+  min-height: var(--phone-height);
+  padding-bottom: 0;
+  border-radius: inherit;
+  justify-content: center;
+}
+
+.intro-screen,
+.form-screen,
+.auth-screen,
+.success-screen {
+  min-height: var(--phone-height);
+}
+
+.intro-screen .back-button,
+.auth-screen .back-button {
+  top: 76px;
+  left: var(--space-5);
+}
+
+.slide-progress,
+.mini-progress,
+.auth-progress {
+  position: absolute;
+  top: 79px;
+  right: var(--space-5);
+}
+
+.mini-progress {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-progress-segment {
+  width: 28px;
+  height: 6px;
+  border-radius: 999px;
+  background: #dfd7e6;
+}
+
+.mini-progress-segment.active {
+  background: var(--brand);
+}
+
+.auth-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-progress-dot,
+.auth-progress-pill {
+  display: block;
+  border-radius: 999px;
+  background: #eadff0;
+}
+
+.auth-progress-dot {
+  width: 8px;
+  height: 8px;
+}
+
+.auth-progress-pill {
+  width: 32px;
+  height: 8px;
+}
+
+.auth-progress-pill.active {
+  background: #4d911e;
+}
+
+.intro-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-copy {
+  padding-top: 92px;
+}
+
+.intro-copy h1,
+.form-copy h1,
+.auth-copy h1,
+.success-copy h1 {
+  font-size: 18px;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.intro-copy p,
+.form-copy p,
+.auth-copy p,
+.success-copy p {
+  font-size: 13px;
+  line-height: 1.42;
+}
+
+.art-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.94), transparent 34%),
+    linear-gradient(180deg, #faf5ff 0%, #ffffff 74%);
+  box-shadow:
+    0 20px 40px rgba(79, 29, 139, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+}
+
+.art-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(117, 73, 176, 0.08);
+  pointer-events: none;
+}
+
+.intro-art-card {
+  width: 252px;
+  height: 252px;
+  margin: 32px auto 0;
+  display: grid;
+  place-items: center;
+}
+
+.intro-image {
+  margin: 0 auto;
+}
+
+.intro-image-plan,
+.intro-image-purpose {
+  width: 218px;
+  height: 218px;
+}
+
+.intro-image-know {
+  width: 242px;
+  height: 214px;
+}
+
+.intro-image-setup {
+  width: 224px;
+  height: 196px;
+}
+
+.bottom-action {
+  margin-top: auto;
+  padding-top: var(--space-8);
+}
+
+.form-screen,
+.auth-screen,
+.success-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-copy,
+.auth-copy {
+  padding-top: 102px;
+  margin-bottom: var(--space-6);
+}
+
+.field-stack,
+.otp-links {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field-stack {
+  margin-bottom: var(--space-6);
+}
+
+.form-action {
+  margin-top: auto;
+  padding-top: var(--space-8);
+}
+
+.phone-row {
+  margin-bottom: var(--space-4);
+  grid-template-columns: 104px 1fr;
+  align-items: stretch;
+}
+
+.country-card,
+.field-card {
+  min-height: 68px;
+}
+
+.text-link {
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.otp-entry {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.otp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 12px repeat(3, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.otp-box {
+  width: 100%;
+  height: 54px;
+  font-size: 18px;
+}
+
+.auth-copy p {
+  max-width: 260px;
+}
+
+.passcode-stage {
+  margin-top: 40px;
+}
+
+.passcode-dots {
+  margin-bottom: 40px;
+}
+
+.passcode-keypad {
+  width: 100%;
+  max-width: 248px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+.passcode-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: 28px;
+}
+
+.passcode-key {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: transparent;
+  color: #231a2c;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.passcode-key.delete svg {
+  width: 20px;
+  height: 20px;
+}
+
+.passcode-key.empty {
+  width: 56px;
+  height: 56px;
+}
+
+.passcode-error {
+  margin: 24px 0 0;
+  text-align: center;
+}
+
+.auth-action {
+  margin-top: auto;
+}
+
+.success-stage {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 56px 0 24px;
+}
+
+.success-art-card {
+  width: 278px;
+  height: 278px;
+  display: grid;
+  place-items: center;
+}
+
+.success-image {
+  width: 218px;
+  height: 218px;
+}
+
+.success-copy {
+  width: 248px;
+  margin-top: 28px;
+}
+
+.success-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(104, 58, 167, 0.1);
+  color: #7d4ac0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Flow stabilization overrides */
+
+.phone-frame {
+  height: var(--phone-height);
+}
+
+.auth-screen,
+.success-screen,
+.wallet-screen,
+.source-screen,
+.add-card-screen,
+.amount-screen,
+.card-success-screen,
+.receipt-screen,
+.deposit-success-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-screen .bottom-action,
+.success-screen .bottom-action,
+.source-screen .bottom-action,
+.add-card-screen .bottom-action,
+.amount-screen .bottom-action,
+.card-success-screen .bottom-action,
+.receipt-screen .bottom-action,
+.deposit-success-screen .bottom-action {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.auth-copy,
+.form-copy,
+.wallet-page-head,
+.card-form-copy,
+.amount-copy,
+.receipt-copy {
+  max-width: 100%;
+}
+
+.passcode-stage-tight {
+  margin-top: 36px;
+}
+
+.passcode-stage-tight .passcode-dots {
+  margin-bottom: 28px;
+}
+
+.passcode-stage-tight .passcode-keypad {
+  gap: 18px;
+}
+
+.passcode-stage-tight .passcode-row {
+  gap: 18px;
+}
+
+.passcode-stage-tight + .passcode-error {
+  margin-top: 18px;
+}
+
+.wallet-screen {
+  padding-top: 54px;
+}
+
+.wallet-page-head {
+  margin-top: 56px;
+  margin-bottom: 14px;
+}
+
+.wallet-card-empty {
+  background:
+    radial-gradient(circle at top right, rgba(126, 70, 194, 0.12), transparent 32%),
+    linear-gradient(180deg, #241235, #1a0c28);
+}
+
+.wallet-actions-row {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+}
+
+.wallet-secondary {
+  min-width: 0;
+  padding: 0 14px;
+}
+
+.wallet-secondary span {
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.empty-panel {
+  padding: 14px 20px 0;
+}
+
+.source-screen,
+.add-card-screen {
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.34), transparent 28%),
+    #c8bdd3;
+}
+
+.sheet {
+  margin-top: 54px;
+  min-height: 0;
+  flex: 1;
+}
+
+.source-empty-state {
+  flex: 1;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 18px 18px;
+}
+
+.source-empty-icon {
+  width: 84px;
+  height: 84px;
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  color: #6f38b2;
+  background: linear-gradient(180deg, #f8f1ff, #f1e8fb);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.source-empty-icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.source-empty-state h2 {
+  margin: 24px 0 0;
+  color: #3b3030;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.source-empty-state p {
+  margin: 10px 0 0;
+  color: #8c8086;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.source-empty-button {
+  margin-top: 24px;
+}
+
+.flow-kicker-card-form {
+  margin-top: 58px;
+}
+
+.card-pin-copy {
+  margin-top: 26px;
+  text-align: center;
+}
+
+.card-pin-illustration {
+  width: 99px;
+  height: 110px;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+.card-pin-copy h1 {
+  margin: 0;
+  color: #3b3030;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.card-pin-copy p {
+  margin: 10px auto 0;
+  max-width: 172px;
+  color: #8c8086;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.card-pin-stage {
+  margin-top: 24px;
+}
+
+.card-pin-hint {
+  margin-top: 20px;
+  align-self: center;
+  min-height: 20px;
+  padding-left: 30px;
+  position: relative;
+  color: #4d911e;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.card-pin-hint::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(77, 145, 30, 0.14);
+}
+
+.card-pin-hint::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 5px;
+  width: 5px;
+  height: 9px;
+  border-right: 2px solid #4d911e;
+  border-bottom: 2px solid #4d911e;
+  transform: rotate(45deg);
+}
+
+.card-form-copy {
+  margin-top: 18px;
+}
+
+.card-form-copy h1 {
+  margin: 0;
+  color: #3b3030;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.card-form-copy p {
+  margin: 10px 0 0;
+  color: #8c8086;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.card-form-stack {
+  margin-top: 22px;
+}
+
+.card-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card-form-action {
+  padding-top: 28px;
+}
+
+.amount-screen .source-summary,
+.receipt-screen .receipt-card,
+.card-success-screen .card-added-copy {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.auth-copy p {
+  max-width: 284px;
+}
+
+.card-preview {
+  margin-top: 18px;
+  min-height: 126px;
+  border-radius: 18px;
+  padding: 18px 16px 16px;
+  position: relative;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(84, 148, 48, 0.9), rgba(41, 16, 79, 0.96) 55%, rgba(28, 9, 52, 1)),
+    linear-gradient(180deg, #3d851c, #6bb649);
+  box-shadow: 0 14px 24px rgba(42, 18, 77, 0.24);
+}
+
+.card-preview-chip {
+  width: 28px;
+  height: 20px;
+  border-radius: 6px;
+  display: block;
+  background: linear-gradient(180deg, #e3c05d, #ba953b);
+  box-shadow: inset 0 0 0 1px rgba(64, 45, 9, 0.24);
+}
+
+.card-preview-brand {
+  position: absolute;
+  right: 16px;
+  top: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.card-preview strong {
+  display: block;
+  margin-top: 34px;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+}
+
+.card-preview-meta {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.card-preview-meta small {
+  display: block;
+  color: rgba(227, 209, 255, 0.88);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.card-preview-meta span {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.live-bucket-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bucket-card-violet .bucket-icon,
+.allocation-item-violet::before {
+  background: #efe7ff;
+}
+
+.bucket-card-amber .bucket-icon,
+.allocation-item-amber::before {
+  background: #ffedd8;
+}
+
+.bucket-card-lilac .bucket-icon,
+.allocation-item-lilac::before {
+  background: #ecd9ff;
+}
+
+.bucket-card-mint .bucket-icon,
+.allocation-item-mint::before {
+  background: #daf9e9;
+}
+
+.bucket-card-violet .bucket-bar span {
+  background: #4f46e5;
+}
+
+.bucket-card-amber .bucket-bar span {
+  background: #b56a14;
+}
+
+.bucket-card-lilac .bucket-bar span {
+  background: #7c3aed;
+}
+
+.bucket-card-mint .bucket-bar span {
+  background: #0f9f6e;
+}
+
+.allocation-empty-screen,
+.allocation-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.allocation-empty-copy,
+.allocation-copy {
+  margin-top: 76px;
+  text-align: center;
+}
+
+.allocation-empty-copy h1,
+.allocation-copy h1 {
+  margin: 0;
+  color: #3b3030;
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.allocation-empty-copy p,
+.allocation-copy p {
+  margin: 12px auto 0;
+  max-width: 264px;
+  color: #8c8086;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.allocation-empty-card,
+.allocation-balance-card {
+  margin-top: 24px;
+  border-radius: 20px;
+  padding: 18px;
+  background: linear-gradient(180deg, #241235, #1c0f2d);
+  color: #fff;
+}
+
+.allocation-empty-card strong,
+.allocation-balance-card strong {
+  display: block;
+  font-size: 28px;
+  line-height: 1.05;
+}
+
+.allocation-empty-card span,
+.allocation-balance-card span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(242, 233, 255, 0.78);
+  font-size: 12px;
+}
+
+.allocation-form-stack {
+  margin-top: 22px;
+}
+
+.allocation-add-button {
+  margin-top: 14px;
+  width: 100%;
+  justify-content: center;
+}
+
+.allocation-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.allocation-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 16px 52px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 20px rgba(56, 34, 84, 0.08);
+}
+
+.allocation-item::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+}
+
+.allocation-item h3 {
+  margin: 0;
+  color: #3b3030;
+  font-size: 15px;
+}
+
+.allocation-item p {
+  margin: 6px 0 0;
+  color: #8c8086;
+  font-size: 12px;
+}
+
+.allocation-item button {
+  border: 0;
+  background: transparent;
+  color: #7d4ac0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .phone-frame {
+    height: 100vh;
+  }
+
+  .source-empty-state {
+    min-height: 300px;
+  }
+
+  .live-bucket-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Figma polish overrides */
+
+.back-button:focus-visible,
+.primary-button:focus-visible,
+.wallet-secondary:focus-visible,
+.wallet-primary:focus-visible,
+.inline-add-button:focus-visible,
+.source-item:focus-visible,
+.allocation-item button:focus-visible,
+.deposit-secondary:focus-visible,
+.close-button:focus-visible,
+.text-link:focus-visible,
+.passcode-key:focus-visible,
+.field-input:focus-visible {
+  outline: 2px solid rgba(111, 56, 178, 0.92);
+  outline-offset: 2px;
+}
+
+.intro-copy {
+  max-width: 272px;
+  padding-top: 94px;
+}
+
+.intro-copy span {
+  color: #7d4ac0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.intro-copy p {
+  max-width: 252px;
+}
+
+.primary-button {
+  min-height: 52px;
+  height: 52px;
+  border-radius: 18px;
+  box-shadow: 0 14px 28px rgba(97, 22, 181, 0.22);
+}
+
+.field-input {
+  background: transparent;
+}
+
+.wallet-page-head {
+  max-width: 286px;
+}
+
+.wallet-page-head p {
+  max-width: 280px;
+}
+
+.source-screen,
+.add-card-screen {
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.34), transparent 26%),
+    linear-gradient(180deg, #d0c6d8, #c2b6cc);
+}
+
+.sheet {
+  border-radius: 22px 22px 18px 18px;
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.95), transparent 28%),
+    linear-gradient(180deg, #ffffff, #fbf9fc);
+  padding: 22px 16px 16px;
+  box-shadow:
+    0 22px 36px rgba(56, 34, 76, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.source-item {
+  min-height: 56px;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.source-item-copy strong {
+  font-weight: 600;
+}
+
+.success-art-card {
+  margin-top: 18px;
+}
+
+.card-added-copy,
+.amount-copy,
+.receipt-copy {
+  text-align: center;
+}
+
+.amount-copy h1,
+.receipt-copy h1,
+.card-added-copy h1 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+
+.card-form-copy p {
+  max-width: 252px;
+}
+
+.card-preview {
+  border-radius: 20px;
+}
+
+.card-preview strong {
+  font-weight: 600;
 }

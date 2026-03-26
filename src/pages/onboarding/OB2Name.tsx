@@ -1,6 +1,6 @@
 import { navigate } from '../../router/hashRouter'
 import { OnboardingHeader } from '../../components/layout/OnboardingHeader'
-import { useAppState } from '../../store/appState'
+import { useAppState } from '../../store/useAppState'
 import { loadUser } from '../../store/userStore'
 import { useMemo, useState } from 'react'
 

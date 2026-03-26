@@ -1,4 +1,4 @@
-import { useAppState } from '../store/appState'
+import { useAppState } from '../store/useAppState'
 
 export default function Settings() {
   const { state, dispatch } = useAppState()

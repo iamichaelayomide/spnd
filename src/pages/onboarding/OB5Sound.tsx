@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { navigate } from '../../router/hashRouter'
 import { OnboardingHeader } from '../../components/layout/OnboardingHeader'
 import { loadUser, type SoundPref } from '../../store/userStore'
-import { useAppState } from '../../store/appState'
+import { useAppState } from '../../store/useAppState'
 
 const cards: Array<{ key: SoundPref; icon: string; title: string; sub: string }> = [
   { key: 'music', icon: '🎵', title: 'Music', sub: 'Lo-fi, ambient, classical' },

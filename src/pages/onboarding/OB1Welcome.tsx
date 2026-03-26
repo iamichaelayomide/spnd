@@ -1,5 +1,5 @@
 import { navigate } from '../../router/hashRouter'
-import { useAppState } from '../../store/appState'
+import { useAppState } from '../../store/useAppState'
 
 export default function OB1Welcome() {
   const { ensureDraftUser } = useAppState()

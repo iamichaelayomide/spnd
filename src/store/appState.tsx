@@ -1,14 +1,8 @@
 import React from 'react'
-import { createBlankUser, loadUser, saveUser, type UserProfile } from './userStore'
+import { appStateContext, type AppState, type AppStateAction } from './appStateContext'
+import { createBlankUser, loadUser, saveUser } from './userStore'
 
-export type AppState = { user: UserProfile | null }
-
-type Action =
-  | { type: 'BOOT' }
-  | { type: 'SET_USER'; user: UserProfile }
-  | { type: 'CLEAR_USER' }
-
-function reducer(state: AppState, action: Action): AppState {
+function reducer(state: AppState, action: AppStateAction): AppState {
   switch (action.type) {
     case 'BOOT':
       return { user: loadUser() }
@@ -22,12 +16,6 @@ function reducer(state: AppState, action: Action): AppState {
       return state
   }
 }
-
-const Ctx = React.createContext<{
-  state: AppState
-  dispatch: React.Dispatch<Action>
-  ensureDraftUser: () => UserProfile
-} | null>(null)
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = React.useReducer(reducer, { user: null })
@@ -44,11 +32,5 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     return draft
   }, [])
 
-  return <Ctx.Provider value={{ state, dispatch, ensureDraftUser }}>{children}</Ctx.Provider>
-}
-
-export function useAppState() {
-  const ctx = React.useContext(Ctx)
-  if (!ctx) throw new Error('useAppState must be used within AppStateProvider')
-  return ctx
+  return <appStateContext.Provider value={{ state, dispatch, ensureDraftUser }}>{children}</appStateContext.Provider>
 }
