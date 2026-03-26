@@ -3630,3 +3630,70 @@ body {
 .success-screen {
   padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
+
+.auth-screen {
+  justify-content: flex-start;
+}
+
+.auth-screen .auth-copy {
+  padding-top: 70px;
+  margin-bottom: 14px;
+}
+
+.auth-screen .auth-copy h1 {
+  font-size: 22px;
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+}
+
+.auth-screen .auth-copy p {
+  font-size: 13px;
+  line-height: 1.34;
+  max-width: 228px;
+}
+
+.auth-screen .passcode-stage,
+.auth-screen .passcode-stage-tight {
+  margin-top: 10px;
+}
+
+.auth-screen .passcode-dots,
+.auth-screen .passcode-stage-tight .passcode-dots {
+  margin-bottom: 14px;
+}
+
+.auth-screen .passcode-keypad,
+.auth-screen .passcode-stage-tight .passcode-keypad {
+  max-width: 232px;
+  gap: 10px;
+}
+
+.auth-screen .passcode-row,
+.auth-screen .passcode-stage-tight .passcode-row {
+  gap: 10px;
+}
+
+.auth-screen .passcode-key {
+  width: 48px;
+  height: 48px;
+  font-size: 18px;
+}
+
+.auth-screen .passcode-key.delete svg {
+  width: 18px;
+  height: 18px;
+}
+
+.auth-screen .bottom-action {
+  position: sticky;
+  left: auto;
+  right: auto;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.auth-screen .auth-button {
+  min-height: 46px;
+  height: 46px;
+}
