@@ -6534,3 +6534,317 @@ body {
   font-size: 13px;
   line-height: 14px;
 }
+
+/* Figma onboarding implementation */
+
+.splash-screen {
+  background: #31066b;
+}
+
+.splash-brandmark {
+  margin-top: 276px;
+}
+
+.splash-wordmark {
+  font-family: "SF Pro Rounded", "Avenir Next Rounded", "Segoe UI", sans-serif;
+  font-size: 44.571px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.intro-screen,
+.form-screen,
+.auth-screen,
+.success-screen {
+  background: #f7f2f6;
+}
+
+.intro-screen .back-button,
+.form-screen .back-button,
+.auth-screen .back-button {
+  top: 74px;
+  left: 19px;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.slide-progress,
+.mini-progress,
+.auth-progress {
+  top: 78px;
+  right: 33px;
+}
+
+.slide-progress-dot,
+.mini-progress-segment {
+  width: 28px;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.intro-copy {
+  padding-top: 101px;
+}
+
+.intro-copy span {
+  color: #8d7f7f;
+  font-size: 10.125px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.intro-copy h1,
+.form-copy h1,
+.auth-copy h1,
+.success-copy h1 {
+  font-family: "SF Pro Rounded", "Avenir Next Rounded", "Segoe UI", sans-serif;
+  color: #000;
+  font-size: 20.251px;
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.intro-copy p,
+.form-copy p,
+.auth-copy p,
+.success-copy p,
+.auth-entry-link {
+  color: #898282;
+  font-size: 13px;
+  line-height: 14px;
+}
+
+.intro-screen .bottom-action,
+.form-screen .form-action,
+.auth-screen .bottom-action,
+.success-screen .bottom-action {
+  margin-top: 0;
+  padding-top: 0;
+  background: transparent;
+}
+
+.intro-screen .bottom-action {
+  position: absolute;
+  left: 21px;
+  right: 30px;
+  bottom: 77px;
+}
+
+.primary-button {
+  min-height: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.intro-image-plan {
+  width: 274px;
+  height: 274px;
+  margin-top: 2px;
+}
+
+.intro-image-know {
+  width: 366px;
+  height: 323px;
+  margin-top: 20px;
+  margin-left: -26px;
+}
+
+.intro-image-purpose {
+  width: 279px;
+  height: 279px;
+  margin-top: 0;
+}
+
+.intro-image-setup {
+  width: 281px;
+  height: 248px;
+  margin-top: 22px;
+}
+
+.form-copy {
+  padding-top: 113px;
+  margin-bottom: 16px;
+}
+
+.field-stack {
+  gap: 16px;
+}
+
+.field-card,
+.country-card {
+  min-height: 55px;
+  border-radius: 10px;
+  border: 0.633px solid #e2e0e0;
+  background: #fafaf9;
+  box-shadow: none;
+}
+
+.field-card {
+  padding: 0 15px;
+  gap: 0;
+  justify-content: center;
+}
+
+.field-label,
+.phone-helper {
+  font-size: 8px;
+  color: #898282;
+}
+
+.field-input,
+.country-code,
+.country-name {
+  font-size: 13px;
+  color: #3b3030;
+}
+
+.phone-row {
+  grid-template-columns: 90px 174px;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.country-card {
+  padding: 0 16px;
+  justify-content: flex-start;
+}
+
+.country-meta {
+  gap: 2px;
+}
+
+.country-name {
+  font-size: 0;
+}
+
+.country-name::before {
+  content: "";
+}
+
+.auth-entry-link {
+  margin-top: 18px;
+}
+
+.form-screen .form-action {
+  position: absolute;
+  left: 26px;
+  right: 25px;
+  bottom: 282px;
+}
+
+.otp-inputs {
+  margin-top: 19px;
+  margin-bottom: 22px;
+}
+
+.otp-box {
+  width: 38.65px;
+  height: 46.21px;
+  border-radius: 8px;
+  border: 0.633px solid #e2e0e0;
+  background: #fafaf9;
+}
+
+.otp-divider {
+  font-size: 14px;
+  color: #898282;
+}
+
+.otp-links {
+  gap: 10px;
+}
+
+.auth-screen {
+  justify-content: flex-start;
+}
+
+.auth-copy {
+  padding-top: 113px;
+  margin-bottom: 0;
+}
+
+.auth-copy p {
+  margin-top: 12px;
+  max-width: 284px;
+}
+
+.passcode-stage-tight {
+  margin-top: 63px;
+}
+
+.passcode-dots {
+  margin-bottom: 32px;
+}
+
+.passcode-keypad,
+.passcode-stage-tight .passcode-keypad {
+  width: 206px;
+  gap: 24px;
+}
+
+.passcode-row,
+.passcode-stage-tight .passcode-row {
+  gap: 80px;
+}
+
+.passcode-key,
+.auth-screen .passcode-key {
+  width: 24px;
+  height: 29px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.auth-screen .bottom-action {
+  position: absolute;
+  left: 26px;
+  right: 25px;
+  bottom: 96px;
+}
+
+.card-pin-hint,
+.passcode-error {
+  margin-top: 28px;
+}
+
+.success-stage {
+  min-height: 0;
+  padding-top: 107px;
+}
+
+.success-art-card {
+  width: 215.594px;
+  height: 223.69px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.success-image {
+  width: 100%;
+  height: 100%;
+}
+
+.success-copy {
+  width: 162px;
+  margin: 15px auto 0;
+  text-align: center;
+}
+
+.success-chip {
+  display: none;
+}
+
+.success-screen .bottom-action {
+  position: absolute;
+  left: 22px;
+  right: 29px;
+  bottom: 193px;
+}

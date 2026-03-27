@@ -688,7 +688,7 @@ export default function App() {
             Use a valid {selectedCountry.name} mobile number with {selectedCountry.phoneLength} digits.
           </p>
           <button className="text-link auth-entry-link" type="button">Already have an account? <span className="auth-link-accent">Log in</span></button>
-          <div className="form-action"><PrimaryButton onClick={submitPhone} disabled={form.phone.length !== selectedCountry.phoneLength}>Continue</PrimaryButton></div>
+          <div className="form-action"><PrimaryButton onClick={submitPhone} disabled={form.phone.length !== selectedCountry.phoneLength}>Next</PrimaryButton></div>
         </FormScreen>
       )
     }
