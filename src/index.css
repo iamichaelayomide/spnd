@@ -5973,3 +5973,213 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Hotfix: restore original purple brand and fix receipt layout */
+
+:root {
+  --spnd-brand: #31066b;
+  --spnd-brand-deep: #24054f;
+  --spnd-brand-soft: #eadbfd;
+  --spnd-line: rgba(80, 46, 110, 0.12);
+}
+
+.primary-button {
+  background: linear-gradient(180deg, #3c0f79, #31066b);
+  box-shadow: 0 14px 28px rgba(49, 6, 107, 0.2);
+}
+
+.primary-button:not(:disabled):hover {
+  background: linear-gradient(180deg, #47178c, #34076f);
+}
+
+.field-card:focus-within,
+.country-card:focus-within,
+.amount-field:focus-within,
+.allocation-value-card:focus-within,
+.passcode-key:hover,
+.passcode-key:focus-visible,
+.passcode-key:active {
+  border-color: rgba(123, 72, 197, 0.68);
+  box-shadow:
+    0 0 0 4px rgba(123, 72, 197, 0.12),
+    0 10px 24px rgba(31, 19, 43, 0.06);
+}
+
+.auth-link-accent,
+.text-link:hover,
+.text-link:focus-visible,
+.section-heading button,
+.allocation-item button,
+.allocation-item-open,
+.allocation-edit-link {
+  color: #6f38b2;
+}
+
+.source-item.selected {
+  border-color: rgba(111, 56, 178, 0.34);
+  background: linear-gradient(180deg, #faf6ff, #f2eafe);
+}
+
+.source-item-icon,
+.receipt-badge,
+.receipt-status-icon,
+.deposit-success-icon-lucide {
+  color: #6f38b2;
+}
+
+.source-item-icon {
+  background: rgba(111, 56, 178, 0.1);
+}
+
+.receipt-badge {
+  margin-top: 18px;
+  margin-bottom: 16px;
+  background: rgba(111, 56, 178, 0.1);
+}
+
+.receipt-screen {
+  justify-content: flex-start;
+  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+}
+
+.receipt-copy {
+  margin-top: 72px;
+  text-align: center;
+}
+
+.receipt-copy h1 {
+  margin: 0;
+}
+
+.receipt-copy p {
+  margin: 10px auto 0;
+  max-width: 264px;
+}
+
+.receipt-card-polished {
+  margin-top: 18px;
+  border-radius: 24px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), transparent 24%),
+    linear-gradient(180deg, #fffefd 0%, #f7f1f6 100%);
+  box-shadow: 0 18px 36px rgba(35, 24, 54, 0.1);
+}
+
+.receipt-status-icon {
+  background: rgba(111, 56, 178, 0.12);
+}
+
+.receipt-amount-hero {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.14), transparent 26%),
+    linear-gradient(180deg, #2e2131, #1f1423);
+}
+
+.receipt-rows {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.receipt-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.receipt-row strong {
+  max-width: 52%;
+  text-align: right;
+}
+
+.receipt-screen .bottom-action {
+  position: static;
+  margin-top: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent;
+}
+
+.deposit-success-icon-lucide {
+  background: rgba(226, 207, 252, 0.36);
+  box-shadow: inset 0 0 0 1px rgba(49, 6, 107, 0.08);
+}
+
+/* Hotfix: remove duplicate source sheet panel and restore purple selection */
+
+.source-screen,
+.add-card-screen {
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.42), transparent 26%),
+    linear-gradient(180deg, #f7f2f6 0%, #f2ebf1 100%);
+}
+
+.sheet {
+  margin-top: 28px;
+  min-height: 0;
+  flex: 1;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.sheet-header {
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.sheet-header h1 {
+  flex: 1;
+}
+
+.sheet-helper {
+  margin: 14px 0 20px;
+  max-width: 280px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.source-group {
+  margin-top: 28px;
+}
+
+.source-item {
+  border-radius: 20px;
+  min-height: 76px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(252, 251, 253, 0.96));
+  border: 1px solid rgba(233, 224, 231, 0.92);
+  box-shadow: 0 12px 28px rgba(41, 24, 58, 0.06);
+}
+
+.source-item.selected {
+  border-color: rgba(111, 56, 178, 0.28);
+  background: linear-gradient(180deg, #f5eeff, #efe6fc);
+}
+
+.source-item-icon {
+  background: rgba(111, 56, 178, 0.1);
+  color: #6f38b2;
+}
+
+.source-radio {
+  border-color: rgba(111, 56, 178, 0.28);
+}
+
+.source-item.selected .source-radio {
+  background: radial-gradient(circle at center, #6f38b2 0 45%, transparent 48%);
+  border-color: #6f38b2;
+}
+
+.source-item-link {
+  background: linear-gradient(180deg, #ffffff, #fbf8fe);
+}
+
+.sheet-action {
+  margin-top: 20px;
+}
