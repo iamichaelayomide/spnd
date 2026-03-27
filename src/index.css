@@ -78,8 +78,8 @@ select {
 .app-shell {
   min-height: 100vh;
   display: grid;
-  place-items: center;
-  padding: 24px;
+  place-items: start center;
+  padding: 14px 24px 24px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.62), transparent 28%),
     radial-gradient(circle at 80% 20%, rgba(112, 60, 178, 0.08), transparent 20%),
@@ -88,7 +88,8 @@ select {
 }
 
 .phone-frame {
-  position: relative;
+  position: sticky;
+  top: 14px;
   width: min(100%, var(--phone-width));
   min-height: var(--phone-height);
   background: var(--surface);
@@ -105,7 +106,7 @@ select {
 
 .screen-content {
   min-height: var(--phone-height);
-  padding: var(--space-4) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  padding: var(--space-4) var(--space-5) calc(24px + env(safe-area-inset-bottom, 0px));
   position: relative;
 }
 
@@ -269,7 +270,7 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: #ffffff;
   background: #31066b;
 }
@@ -301,23 +302,33 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -6px;
+  justify-content: center;
+  margin-top: 268px;
+  gap: 0;
+}
+
+.splash-symbol-wrap {
+  width: 123px;
+  height: 42px;
+  display: grid;
+  place-items: center;
 }
 
 .splash-symbol {
   width: 122px;
   height: 41.134px;
   display: block;
-  margin-bottom: 1px;
+  object-fit: contain;
 }
 
 .splash-wordmark {
-  margin: 0;
+  display: block;
   font-size: 44.571px;
-  line-height: 1;
-  letter-spacing: -0.035em;
-  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  font-weight: 800;
   color: #ffffff;
+  text-rendering: geometricPrecision;
 }
 
 .intro-screen {
@@ -1574,14 +1585,6 @@ select {
 .field-stack {
   display: grid;
   gap: 20px;
-}
-
-.form-action,
-.bottom-action {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: calc(32px + env(safe-area-inset-bottom, 0px));
 }
 
 .field-card-phone {
@@ -3282,8 +3285,7 @@ select {
 .deposit-secondary:focus-visible,
 .close-button:focus-visible,
 .text-link:focus-visible,
-.passcode-key:focus-visible,
-.field-input:focus-visible {
+.passcode-key:focus-visible {
   outline: 2px solid rgba(111, 56, 178, 0.92);
   outline-offset: 2px;
 }
@@ -3447,7 +3449,7 @@ select {
 .allocation-screen,
 .add-card-screen,
 .form-screen {
-  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
 }
 
 .form-screen .back-button,
@@ -3751,4 +3753,2223 @@ body {
   bottom: calc(18px + env(safe-area-inset-bottom, 0px));
   margin-top: auto;
   padding-top: 16px;
+}
+
+/* Onboarding and palette refinements */
+
+:root {
+  color: #14211d;
+  background: #ece5dc;
+  font-family: "Segoe UI Variable Display", "Segoe UI", "Trebuchet MS", sans-serif;
+  --surface: #fffdf9;
+  --surface-soft: #eff7f3;
+  --text: #14211d;
+  --muted: #5e6d67;
+  --muted-2: #74837d;
+  --brand: #0f6d63;
+  --brand-2: #0b5a52;
+  --brand-soft: #e1f5ef;
+  --line: #d8e7e0;
+}
+
+.app-shell {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.76), transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(15, 109, 99, 0.14), transparent 22%),
+    radial-gradient(circle at bottom right, rgba(201, 118, 72, 0.12), transparent 26%),
+    #ece5dc;
+}
+
+.phone-frame {
+  border: 1px solid rgba(20, 33, 29, 0.06);
+  box-shadow:
+    0 28px 70px rgba(23, 46, 40, 0.14),
+    0 8px 24px rgba(23, 46, 40, 0.08);
+}
+
+.primary-button {
+  background: linear-gradient(180deg, #128173, #0b5a52);
+  box-shadow: 0 12px 24px rgba(15, 109, 99, 0.18);
+}
+
+.primary-button:disabled {
+  background: linear-gradient(180deg, #d0ddd8, #bfcdc8);
+  color: rgba(20, 33, 29, 0.48);
+  opacity: 1;
+  box-shadow: none;
+}
+
+.auth-link-accent,
+.text-link:hover,
+.text-link:focus-visible,
+.section-heading button,
+.allocation-item button {
+  color: #0f6d63;
+}
+
+.field-card,
+.country-card {
+  background: linear-gradient(180deg, #f4faf7, #eef6f2);
+  border-color: rgba(15, 109, 99, 0.08);
+}
+
+.field-card:focus-within,
+.country-card:focus-within {
+  border-color: rgba(15, 109, 99, 0.4);
+  box-shadow: 0 0 0 4px rgba(15, 109, 99, 0.12);
+  background: #f8fdfb;
+}
+
+.form-copy p,
+.auth-copy p,
+.intro-copy p,
+.allocation-copy p,
+.allocation-empty-copy p,
+.card-form-copy p,
+.amount-copy p,
+.receipt-copy p,
+.card-added-copy p,
+.deposit-success-stage p,
+.empty-panel p,
+.phone-helper {
+  color: #62716b;
+}
+
+.phone-row {
+  grid-template-columns: minmax(0, 132px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.country-card {
+  position: relative;
+  min-width: 0;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  overflow: hidden;
+}
+
+.country-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.country-meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.country-name {
+  font-size: 11px;
+  line-height: 1;
+  color: var(--muted-2);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 58px;
+}
+
+.country-code {
+  margin-left: 0;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--text);
+}
+
+.country-chevron {
+  margin-left: auto;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  color: #4e645d;
+}
+
+.country-chevron svg {
+  width: 12px;
+  height: 12px;
+}
+
+.country-flag {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 18px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(20, 33, 29, 0.08);
+}
+
+.country-flag i {
+  display: block;
+}
+
+.country-flag-ng {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.country-flag-ng .band-1,
+.country-flag-ng .band-3 {
+  background: #13945e;
+}
+
+.country-flag-ng .band-2 {
+  background: #fffdf8;
+}
+
+.country-flag-us,
+.country-flag-uk,
+.country-flag-ca {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.country-flag-us .band-1,
+.country-flag-ca .band-1,
+.country-flag-ca .band-3 {
+  background: #d95f4f;
+}
+
+.country-flag-us .band-2,
+.country-flag-ca .band-2 {
+  background: #fffdf8;
+}
+
+.country-flag-us .band-3 {
+  background: #355b9b;
+}
+
+.country-flag-uk .band-1 {
+  background: #26467f;
+}
+
+.country-flag-uk .band-2 {
+  background: #fffdf8;
+}
+
+.country-flag-uk .band-3 {
+  background: #c95752;
+}
+
+.phone-helper {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.field-card-phone .field-input {
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+.form-screen {
+  gap: 0;
+}
+
+.form-action,
+.bottom-action {
+  margin-top: auto;
+  padding-top: 20px;
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0), rgba(255, 253, 249, 0.82) 24%, rgba(255, 253, 249, 1));
+}
+
+.wallet-card-empty,
+.allocation-empty-card,
+.allocation-balance-card {
+  background:
+    radial-gradient(circle at top right, rgba(67, 153, 122, 0.16), transparent 34%),
+    linear-gradient(180deg, #18322c, #102621);
+}
+
+.inline-add-button,
+.wallet-secondary,
+.deposit-secondary {
+  background: #e6f4ef;
+  color: #19423a;
+}
+
+.source-screen,
+.add-card-screen {
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.42), transparent 26%),
+    linear-gradient(180deg, #d9d4c9, #cac2b6);
+}
+
+.sheet {
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.96), transparent 28%),
+    linear-gradient(180deg, #fffdf9, #f6f2eb);
+}
+
+@media (max-width: 640px) {
+  .phone-row {
+    grid-template-columns: 1fr;
+  }
+
+  .country-name {
+    max-width: none;
+  }
+}
+
+.bucket-card-button {
+  width: 100%;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bucket-card-button .bucket-icon,
+.bucket-inline-icon,
+.bucket-detail-icon,
+.receipt-status-icon,
+.deposit-success-icon-lucide {
+  display: grid;
+  place-items: center;
+}
+
+.bucket-card-button .bucket-icon {
+  color: #18483f;
+}
+
+.bucket-link-row {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #4b675f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.allocation-item {
+  padding: 12px 14px 12px 52px;
+  gap: 8px;
+}
+
+.allocation-item-main {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.allocation-item-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #4f6f66;
+  font-size: 12px;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.allocation-screen,
+.allocation-review-screen,
+.allocation-success-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.allocation-copy {
+  margin-top: 76px;
+}
+
+.allocation-form-stack-polished {
+  margin-bottom: 14px;
+}
+
+.allocation-total-row {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #6f656d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.allocation-total-row strong {
+  color: #17131f;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+
+.allocation-value-card,
+.allocation-review-card {
+  border: 1px solid #ebe2e8;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 28px rgba(43, 24, 58, 0.06);
+}
+
+.allocation-value-card {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.allocation-value-toggle {
+  height: 52px;
+  padding: 3px;
+  border-radius: 10px;
+  background: #f2edf1;
+  display: grid;
+  gap: 3px;
+}
+
+.allocation-value-toggle button {
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #b1a5ad;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.allocation-value-toggle button.active {
+  background: #fffdfd;
+  color: #3b3030;
+  box-shadow: 0 1px 6px rgba(30, 16, 43, 0.08);
+}
+
+.allocation-value-input span,
+.allocation-value-preview span,
+.allocation-review-row span,
+.allocation-review-bucket span,
+.allocation-edit-link {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.allocation-value-input span,
+.allocation-value-preview span,
+.allocation-review-row span {
+  color: #847a83;
+}
+
+.allocation-value-input input {
+  margin-top: 8px;
+  width: 100%;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: #1c1621;
+}
+
+.allocation-value-preview {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f0e7ee;
+}
+
+.allocation-value-preview strong {
+  display: block;
+  margin-top: 4px;
+  color: #17131f;
+  font-size: 15px;
+}
+
+.allocation-review-screen .allocation-copy {
+  margin-bottom: 20px;
+}
+
+.allocation-review-card {
+  padding: 14px 16px;
+}
+
+.allocation-review-list {
+  display: grid;
+  gap: 2px;
+}
+
+.allocation-review-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(240, 236, 236, 0.9);
+}
+
+.allocation-review-row.total {
+  padding-top: 4px;
+}
+
+.allocation-review-row.leftover {
+  border-bottom: 0;
+  border-top: 1px solid rgba(240, 236, 236, 0.9);
+  margin-top: 4px;
+}
+
+.allocation-review-row > strong,
+.allocation-review-row.total strong {
+  color: #2b232d;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.allocation-review-bucket {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.allocation-review-bucket div strong {
+  display: block;
+  color: #2b232d;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.allocation-review-bucket div span {
+  display: block;
+  margin-top: 4px;
+}
+
+.allocation-review-icon {
+  width: 21px;
+  height: 21px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.allocation-review-icon-violet { background: #d1fae5; color: #17624f; }
+.allocation-review-icon-amber { background: #fff7ed; color: #b45309; }
+.allocation-review-icon-lilac { background: #e2cffc; color: #6d28d9; }
+.allocation-review-icon-mint { background: #e0e7ff; color: #3653b8; }
+
+.allocation-edit-link {
+  margin-top: 18px;
+  align-self: center;
+  background: transparent;
+  color: #3b3030;
+  cursor: pointer;
+}
+
+.allocation-success-stage {
+  min-height: 100%;
+  padding-top: 98px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.allocation-success-art {
+  width: 95px;
+  height: 110px;
+  margin-bottom: 18px;
+}
+
+.allocation-success-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.allocation-success-stage h1 {
+  margin: 0;
+  color: #17131f;
+  font-size: 26px;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.allocation-success-stage p {
+  max-width: 236px;
+  margin: 10px 0 24px;
+  color: #867b84;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.bucket-detail-screen,
+.bucket-transfer-screen,
+.bucket-review-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.bucket-detail-hero {
+  margin-top: 76px;
+  border-radius: 24px;
+  padding: 22px 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.16), transparent 30%),
+    linear-gradient(160deg, #17332d, #0f2420);
+}
+
+.bucket-detail-hero-violet {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(160deg, #21443d, #102f2a);
+}
+
+.bucket-detail-hero-amber {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(160deg, #5d3d1d, #3f2a12);
+}
+
+.bucket-detail-hero-lilac {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(160deg, #314a45, #1d322f);
+}
+
+.bucket-detail-hero-mint {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(160deg, #0f4d45, #0a342e);
+}
+
+.bucket-detail-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.bucket-detail-copy span,
+.bucket-metric-card span,
+.bucket-inline-card span,
+.receipt-badge,
+.receipt-status-copy span,
+.receipt-amount-hero span {
+  display: block;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.bucket-detail-copy span {
+  color: rgba(235, 247, 243, 0.76);
+}
+
+.bucket-detail-copy h1 {
+  margin: 6px 0 0;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.bucket-detail-copy strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 30px;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.bucket-metrics {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bucket-metric-card,
+.bucket-inline-card {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 24px rgba(36, 52, 46, 0.08);
+}
+
+.bucket-metric-card {
+  padding: 16px;
+}
+
+.bucket-metric-card span {
+  color: #6a7873;
+}
+
+.bucket-metric-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #1a2925;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.bucket-detail-actions {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.bucket-detail-action {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #18332d;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(36, 52, 46, 0.08);
+}
+
+.bucket-detail-action.primary {
+  background: linear-gradient(180deg, #eff9f5, #e3f2ec);
+}
+
+.bucket-detail-action-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 109, 99, 0.1);
+  color: #0f6d63;
+  flex: 0 0 auto;
+}
+
+.bucket-detail-action strong,
+.bucket-inline-card strong,
+.receipt-status-copy strong,
+.receipt-row strong {
+  display: block;
+}
+
+.bucket-detail-action strong {
+  font-size: 15px;
+}
+
+.bucket-detail-action small {
+  display: block;
+  margin-top: 6px;
+  color: #6c7975;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.bucket-activity-panel {
+  margin-top: 18px;
+}
+
+.source-summary-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.source-summary-split div {
+  min-width: 0;
+}
+
+.bucket-inline-card {
+  margin-top: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bucket-inline-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(15, 109, 99, 0.1);
+  color: #0f6d63;
+}
+
+.bucket-inline-card span {
+  color: #6b7a74;
+}
+
+.bucket-inline-card strong {
+  margin-top: 4px;
+  color: #1c2e29;
+  font-size: 15px;
+}
+
+.transfer-review-card {
+  margin-top: 12px;
+}
+
+.transfer-review-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(227, 242, 236, 0.84);
+  color: #24574e;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.transfer-review-note p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.receipt-badge {
+  margin-top: 82px;
+  margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(15, 109, 99, 0.1);
+  color: #0f6d63;
+  font-weight: 700;
+}
+
+.receipt-card-polished {
+  border-radius: 24px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.74), transparent 28%),
+    linear-gradient(180deg, #fffdf9, #f5f1ea);
+  box-shadow: 0 18px 36px rgba(35, 53, 46, 0.1);
+}
+
+.receipt-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.receipt-status-copy span,
+.receipt-row span {
+  color: #6f7d77;
+}
+
+.receipt-status-copy strong {
+  margin-top: 4px;
+  color: #17312b;
+  font-size: 18px;
+}
+
+.receipt-status-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: rgba(15, 109, 99, 0.12);
+  color: #0f6d63;
+}
+
+.receipt-amount-hero {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #17342e, #102521);
+  color: #fff;
+}
+
+.receipt-amount-hero span {
+  color: rgba(237, 248, 244, 0.74);
+}
+
+.receipt-amount-hero strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 30px;
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+}
+
+.receipt-rows {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.receipt-row {
+  padding: 0;
+}
+
+.receipt-row strong {
+  margin-top: 4px;
+  color: #1b2f2a;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.deposit-success-icon-lucide {
+  width: 92px;
+  height: 92px;
+  border-radius: 28px;
+  margin: 0 auto;
+  background: rgba(15, 109, 99, 0.1);
+  color: #0f6d63;
+}
+
+@media (max-width: 640px) {
+  .bucket-metrics,
+  .source-summary-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Final Figma alignment pass */
+
+:root {
+  font-family: "SF Pro Rounded", "Avenir Next Rounded", ui-rounded, "Segoe UI", sans-serif;
+  --surface: #f7f2f6;
+  --surface-soft: #fcfafb;
+  --text: #241e27;
+  --muted: #7f747d;
+  --muted-2: #9a8f98;
+  --brand: #31066b;
+  --brand-2: #4a1792;
+  --brand-soft: #e6d3fb;
+  --line: #ece3e9;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.62), transparent 22%),
+    radial-gradient(circle at 84% 18%, rgba(212, 191, 235, 0.28), transparent 16%),
+    linear-gradient(180deg, #e1d0d3, #d7c7ca);
+}
+
+.phone-frame {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.82), transparent 24%),
+    linear-gradient(180deg, #f7f2f6 0%, #f4eef2 100%);
+}
+
+.screen-content {
+  background:
+    linear-gradient(180deg, rgba(247, 242, 246, 0.96) 0%, rgba(245, 239, 243, 0.92) 52%, rgba(255, 255, 255, 0.96) 100%);
+}
+
+.status-time,
+.wallet-card h1,
+.receipt-copy h1,
+.deposit-success-stage h1,
+.allocation-success-stage h1,
+.allocation-copy h1 {
+  letter-spacing: -0.045em;
+}
+
+.flow-kicker,
+.flow-kicker-card-form,
+.flow-kicker-card,
+.flow-kicker-centered,
+.flow-kicker-auth {
+  color: #8d7f7f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.primary-button {
+  min-height: 56px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #3c0f79, #31066b);
+  box-shadow: 0 14px 24px rgba(49, 6, 107, 0.2);
+}
+
+.primary-button:not(:disabled):hover {
+  background: linear-gradient(180deg, #47178c, #34076f);
+}
+
+.back-button,
+.close-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 20px rgba(36, 30, 39, 0.08);
+}
+
+.wallet-card,
+.allocation-balance-card,
+.source-summary,
+.deposit-review-card,
+.bucket-metric-card,
+.bucket-inline-card,
+.allocation-review-card {
+  border: 1px solid rgba(233, 224, 231, 0.92);
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(10px);
+}
+
+.wallet-card {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.3), transparent 24%),
+    linear-gradient(180deg, #322135 0%, #24172a 100%);
+  border-color: rgba(83, 56, 93, 0.34);
+  box-shadow: 0 22px 44px rgba(37, 18, 54, 0.2);
+}
+
+.wallet-card p {
+  color: rgba(239, 233, 243, 0.72);
+}
+
+.amount-field {
+  border: 1px solid rgba(233, 224, 231, 0.92);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 28px rgba(43, 24, 58, 0.06);
+}
+
+.quick-amounts button {
+  border: 1px solid rgba(231, 223, 230, 0.9);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.quick-amounts button.active {
+  border-color: rgba(49, 6, 107, 0.18);
+  background: rgba(226, 207, 252, 0.5);
+  color: #31066b;
+}
+
+.allocation-copy,
+.receipt-copy,
+.deposit-success-stage,
+.allocation-success-stage {
+  text-align: center;
+}
+
+.allocation-copy p,
+.receipt-copy p,
+.deposit-success-stage p,
+.allocation-success-stage p {
+  max-width: 252px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #867b84;
+}
+
+.allocation-empty-card,
+.allocation-balance-card {
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(43, 24, 58, 0.06);
+}
+
+.allocation-value-card,
+.allocation-review-card,
+.receipt-card-polished {
+  box-shadow: 0 22px 34px rgba(42, 26, 56, 0.08);
+}
+
+.allocation-review-card {
+  text-align: left;
+}
+
+.allocation-edit-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.allocation-success-stage {
+  justify-content: flex-start;
+}
+
+.allocation-success-art {
+  margin-bottom: 14px;
+  filter: drop-shadow(0 14px 24px rgba(49, 6, 107, 0.12));
+}
+
+.receipt-copy {
+  margin-top: 74px;
+}
+
+.receipt-card-polished {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(233, 224, 231, 0.92);
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), transparent 24%),
+    linear-gradient(180deg, #fffefd 0%, #f7f1f6 100%);
+}
+
+.receipt-card-polished::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 207, 214, 0.9), transparent);
+}
+
+.receipt-status-copy strong {
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.receipt-amount-hero {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.14), transparent 26%),
+    linear-gradient(180deg, #2e2131, #1f1423);
+}
+
+.receipt-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.receipt-row strong {
+  margin-top: 0;
+  max-width: 52%;
+  text-align: right;
+}
+
+.deposit-success-icon-lucide {
+  background: rgba(226, 207, 252, 0.36);
+  color: #31066b;
+  box-shadow: inset 0 0 0 1px rgba(49, 6, 107, 0.08);
+}
+
+/* Interaction and sizing corrections */
+
+:root {
+  --phone-height: 680px;
+  --text-sm: 11px;
+  --text-md: 13px;
+  --text-lg: 15px;
+  --text-xl: 23px;
+}
+
+.phone-frame {
+  height: min(calc(100vh - 32px), var(--phone-height));
+}
+
+.screen-content {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.screen-content::-webkit-scrollbar {
+  display: none;
+}
+
+.screen-content > .status-bar,
+.slide-progress,
+.mini-progress,
+.auth-progress,
+.back-button,
+.close-button {
+  z-index: 12;
+}
+
+.screen-content > .status-bar {
+  position: sticky;
+  top: 0;
+  padding-top: 16px;
+  padding-bottom: 10px;
+  background: linear-gradient(180deg, rgba(247, 242, 246, 0.98), rgba(247, 242, 246, 0));
+}
+
+.intro-screen .back-button,
+.passcode-screen .back-button,
+.auth-screen .back-button,
+.allocation-empty-screen > .back-button,
+.allocation-screen > .back-button,
+.wallet-screen > .back-button,
+.source-screen > .back-button,
+.amount-screen > .back-button,
+.receipt-screen > .back-button,
+.add-card-screen > .back-button,
+.card-success-screen > .back-button,
+.bucket-detail-screen > .back-button,
+.bucket-transfer-screen > .back-button,
+.bucket-review-screen > .back-button {
+  position: absolute;
+  top: 56px;
+  left: 20px;
+}
+
+.slide-progress,
+.mini-progress,
+.auth-progress {
+  top: 60px;
+}
+
+.form-copy,
+.auth-copy,
+.intro-copy,
+.allocation-copy,
+.receipt-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.intro-copy h1,
+.form-copy h1,
+.auth-copy h1,
+.success-copy h1,
+.allocation-copy h1,
+.receipt-copy h1,
+.deposit-success-stage h1,
+.allocation-success-stage h1 {
+  font-size: 20px;
+}
+
+.intro-copy p,
+.form-copy p,
+.auth-copy p,
+.success-copy p,
+.allocation-copy p,
+.receipt-copy p,
+.deposit-success-stage p,
+.allocation-success-stage p {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.field-card,
+.country-card {
+  min-height: 54px;
+  border-radius: 14px;
+  border: 1px solid rgba(233, 224, 231, 0.92);
+  box-shadow: none;
+}
+
+.field-card {
+  padding: 10px 14px;
+  cursor: text;
+}
+
+.field-label {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.field-input,
+.country-code {
+  font-size: 13px;
+}
+
+.field-input {
+  display: block;
+  min-height: 20px;
+}
+
+.field-input::placeholder,
+.amount-field input::placeholder {
+  color: #b1a5ad;
+}
+
+.field-card:focus-within,
+.country-card:focus-within,
+.amount-field:focus-within,
+.allocation-value-card:focus-within {
+  border-color: #7b48c5;
+  box-shadow: 0 0 0 3px rgba(123, 72, 197, 0.12);
+}
+
+.field-card:focus-within .field-input {
+  outline: none;
+  box-shadow: none;
+}
+
+.amount-field {
+  min-height: 68px;
+  border-radius: 16px;
+}
+
+.amount-field span {
+  font-size: 22px;
+}
+
+.amount-field input {
+  font-size: 28px;
+}
+
+.quick-amounts button,
+.allocation-value-toggle button,
+.inline-add-button,
+.allocation-edit-link,
+.deposit-secondary,
+.wallet-secondary,
+.wallet-primary,
+.wallet-utility,
+.bucket-detail-action,
+.allocation-item button,
+.source-option,
+.close-button,
+.back-button,
+.passcode-key {
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.quick-amounts button:active,
+.allocation-value-toggle button:active,
+.inline-add-button:active,
+.deposit-secondary:active,
+.wallet-secondary:active,
+.wallet-primary:active,
+.wallet-utility:active,
+.bucket-detail-action:active,
+.allocation-item button:active,
+.source-option:active,
+.close-button:active,
+.back-button:active {
+  transform: translateY(1px);
+}
+
+.otp-box,
+.passcode-key,
+.passcode-key.delete {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+
+.passcode-keypad {
+  width: 220px;
+  gap: 16px;
+}
+
+.passcode-row,
+.passcode-keypad-row {
+  gap: 16px;
+}
+
+.passcode-key {
+  width: 44px;
+  height: 46px;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 600;
+  color: #3b3030;
+}
+
+.passcode-key.delete svg {
+  width: 18px;
+  height: 18px;
+}
+
+.passcode-key:hover,
+.passcode-key:focus-visible,
+.passcode-key:active {
+  border-color: #7b48c5;
+  box-shadow: 0 0 0 3px rgba(123, 72, 197, 0.12);
+}
+
+.passcode-key.empty {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.wallet-card h1 {
+  font-size: 28px;
+}
+
+.wallet-card p,
+.allocation-item p,
+.bucket-detail-action small,
+.source-summary span,
+.deposit-review-card span,
+.bucket-metric-card span,
+.bucket-inline-card span {
+  font-size: 11px;
+}
+
+.wallet-screen .empty-panel,
+.allocation-empty-card,
+.wallet-card-empty {
+  border-radius: 18px;
+}
+
+/* Design polish pass: tighter spacing and better form scale */
+
+.form-screen,
+.auth-screen,
+.source-screen,
+.add-card-screen,
+.amount-screen,
+.card-success-screen,
+.receipt-screen,
+.deposit-success-screen,
+.allocation-screen,
+.allocation-review-screen,
+.allocation-success-screen,
+.wallet-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-copy,
+.auth-copy,
+.card-form-copy,
+.amount-copy,
+.allocation-copy {
+  max-width: 286px;
+}
+
+.form-copy {
+  padding-top: 72px;
+  margin-bottom: 18px;
+}
+
+.form-copy h1 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  line-height: 1.14;
+}
+
+.form-copy p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.42;
+  color: #857882;
+}
+
+.field-stack {
+  gap: 14px;
+}
+
+.phone-row {
+  grid-template-columns: 104px 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: stretch;
+}
+
+.country-card,
+.field-card {
+  min-height: 50px;
+  border-radius: 15px;
+}
+
+.country-card {
+  padding: 0 12px;
+  align-items: center;
+}
+
+.country-meta {
+  min-width: 0;
+  gap: 1px;
+}
+
+.country-name {
+  font-size: 10px;
+  line-height: 1.15;
+  color: #877a84;
+}
+
+.country-code {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.field-card {
+  padding: 9px 14px;
+  gap: 3px;
+}
+
+.field-label {
+  font-size: 9px;
+  line-height: 1;
+  color: #9d9199;
+}
+
+.field-input {
+  min-height: 18px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.field-card-phone .field-input {
+  letter-spacing: -0.01em;
+}
+
+.phone-helper {
+  margin: 0 0 10px;
+  font-size: 10px;
+  line-height: 1.35;
+  color: #8c8189;
+}
+
+.form-action,
+.bottom-action {
+  position: static;
+  margin-top: auto;
+  padding-top: 18px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+.auth-screen .bottom-action,
+.success-screen .bottom-action,
+.source-screen .bottom-action,
+.add-card-screen .bottom-action,
+.amount-screen .bottom-action,
+.card-success-screen .bottom-action,
+.receipt-screen .bottom-action,
+.deposit-success-screen .bottom-action {
+  margin-top: auto;
+}
+
+.primary-button {
+  min-height: 52px;
+  font-size: 14px;
+}
+
+.back-button,
+.close-button {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(12px);
+}
+
+.screen-content > .status-bar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.14);
+}
+
+/* Final mobile flow cleanup: funding, PIN, and allocation */
+
+:root {
+  --spnd-bg: #f5efe6;
+  --spnd-bg-soft: #fbf7f1;
+  --spnd-surface: rgba(255, 252, 247, 0.92);
+  --spnd-surface-strong: #fffdf9;
+  --spnd-text-strong: #1f2b27;
+  --spnd-text: #31423d;
+  --spnd-text-soft: #697873;
+  --spnd-line: rgba(27, 50, 44, 0.1);
+  --spnd-brand: #136f63;
+  --spnd-brand-deep: #0c564d;
+  --spnd-brand-soft: #dff2eb;
+  --spnd-shadow: 0 18px 42px rgba(28, 45, 40, 0.11);
+}
+
+body {
+  font-family: "Aptos", "Segoe UI Variable Display", "Segoe UI", "Trebuchet MS", sans-serif;
+  color: var(--spnd-text-strong);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.88), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(196, 140, 92, 0.1), transparent 28%),
+    var(--spnd-bg);
+}
+
+.app-shell {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.84), transparent 28%),
+    radial-gradient(circle at 84% 14%, rgba(19, 111, 99, 0.12), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(196, 140, 92, 0.1), transparent 26%),
+    var(--spnd-bg);
+}
+
+.phone-frame {
+  height: min(calc(100vh - 28px), 760px);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(247, 241, 233, 0.98));
+  border: 1px solid rgba(20, 33, 29, 0.08);
+  box-shadow:
+    0 26px 60px rgba(23, 39, 34, 0.15),
+    0 6px 22px rgba(23, 39, 34, 0.08);
+}
+
+.screen-content {
+  padding: 14px 22px calc(26px + env(safe-area-inset-bottom, 0px));
+  background: transparent;
+}
+
+.screen-content > .status-bar {
+  top: -14px;
+  margin: 0 -22px;
+  padding: 18px 22px 12px;
+  background: linear-gradient(180deg, rgba(247, 241, 233, 0.98), rgba(247, 241, 233, 0));
+  box-shadow: none;
+}
+
+.status-time,
+.status-icons {
+  color: var(--spnd-text-strong);
+}
+
+.flow-kicker,
+.flow-kicker-card-form,
+.flow-kicker-card,
+.flow-kicker-centered,
+.flow-kicker-auth {
+  margin-top: 62px;
+  color: #917f72;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.back-button,
+.close-button {
+  background: rgba(255, 253, 249, 0.88);
+  color: var(--spnd-text);
+  box-shadow: 0 10px 24px rgba(22, 37, 32, 0.08);
+}
+
+.source-screen > .back-button,
+.add-card-screen > .back-button,
+.card-pin-screen > .back-button,
+.allocation-empty-screen > .back-button,
+.allocation-screen > .back-button,
+.allocation-review-screen > .back-button,
+.bucket-detail-screen > .back-button,
+.bucket-transfer-screen > .back-button,
+.bucket-review-screen > .back-button,
+.amount-screen > .back-button,
+.receipt-screen > .back-button {
+  top: 68px;
+  left: 22px;
+}
+
+.card-form-copy h1,
+.card-pin-copy h1,
+.allocation-copy h1,
+.amount-copy h1,
+.receipt-copy h1,
+.auth-copy h1,
+.allocation-success-stage h1 {
+  color: var(--spnd-text-strong);
+  font-size: 20px;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.card-form-copy p,
+.card-pin-copy p,
+.allocation-copy p,
+.amount-copy p,
+.receipt-copy p,
+.auth-copy p,
+.allocation-success-stage p,
+.empty-panel p {
+  color: var(--spnd-text-soft);
+  font-size: 14px;
+  line-height: 1.48;
+}
+
+.primary-button {
+  min-height: 54px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--spnd-brand), var(--spnd-brand-deep));
+  color: #f9fffc;
+  box-shadow: 0 14px 28px rgba(19, 111, 99, 0.2);
+}
+
+.primary-button:not(:disabled):hover {
+  background: linear-gradient(180deg, #168171, #0d6055);
+}
+
+.primary-button:disabled {
+  background: linear-gradient(180deg, #dce8e2, #cdd9d3);
+  color: rgba(31, 43, 39, 0.56);
+  box-shadow: none;
+}
+
+.field-card,
+.country-card,
+.amount-field,
+.allocation-value-card,
+.allocation-review-card,
+.source-item,
+.source-summary,
+.deposit-review-card,
+.bucket-metric-card,
+.bucket-inline-card,
+.receipt-card-polished {
+  border: 1px solid var(--spnd-line);
+  background: var(--spnd-surface);
+  box-shadow: var(--spnd-shadow);
+}
+
+.field-card,
+.country-card {
+  background: linear-gradient(180deg, #f6fbf8, #edf5f1);
+}
+
+.field-card:focus-within,
+.country-card:focus-within,
+.amount-field:focus-within,
+.allocation-value-card:focus-within {
+  border-color: rgba(19, 111, 99, 0.42);
+  box-shadow:
+    0 0 0 4px rgba(19, 111, 99, 0.12),
+    var(--spnd-shadow);
+}
+
+.field-label,
+.sheet-helper,
+.source-item-copy small,
+.allocation-total-row,
+.allocation-value-input span,
+.allocation-value-preview span,
+.allocation-review-row span,
+.allocation-review-bucket span,
+.bucket-metric-card span,
+.bucket-inline-card span,
+.receipt-badge,
+.receipt-status-copy span,
+.receipt-row span {
+  color: #7b8b84;
+}
+
+.field-input,
+.amount-field input,
+.country-code,
+.allocation-value-input input,
+.allocation-value-preview strong,
+.allocation-review-row strong,
+.source-item-copy strong,
+.bucket-detail-copy h1,
+.bucket-detail-copy strong,
+.receipt-row strong,
+.receipt-status-copy strong {
+  color: var(--spnd-text-strong);
+}
+
+.source-screen,
+.add-card-screen,
+.card-pin-screen,
+.allocation-screen,
+.allocation-review-screen,
+.allocation-success-screen {
+  background:
+    radial-gradient(circle at top center, rgba(255, 255, 255, 0.52), transparent 28%),
+    linear-gradient(180deg, #f5efe6 0%, #efe5da 100%);
+}
+
+.sheet {
+  margin-top: 28px;
+  padding: 18px 0 0;
+  background: transparent;
+}
+
+.sheet-header {
+  align-items: center;
+  margin-top: 8px;
+}
+
+.sheet-header .back-button {
+  position: static;
+  flex: 0 0 auto;
+}
+
+.sheet-header h1 {
+  color: var(--spnd-text-strong);
+}
+
+.sheet-helper {
+  margin: 14px 0 22px;
+  max-width: 270px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.source-item {
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.source-item.selected {
+  border-color: rgba(19, 111, 99, 0.34);
+  background: linear-gradient(180deg, #f2fbf7, #e9f5f0);
+}
+
+.source-item-icon {
+  background: rgba(19, 111, 99, 0.09);
+  color: var(--spnd-brand);
+}
+
+.source-radio {
+  border-color: rgba(19, 111, 99, 0.24);
+}
+
+.source-item.selected .source-radio {
+  background: radial-gradient(circle at center, var(--spnd-brand) 0 45%, transparent 48%);
+  border-color: var(--spnd-brand);
+}
+
+.source-empty-state {
+  min-height: 0;
+  padding: 42px 18px 18px;
+}
+
+.source-empty-icon {
+  color: var(--spnd-brand);
+  background: linear-gradient(180deg, #edf8f4, #def1e9);
+}
+
+.card-preview {
+  margin-top: 24px;
+  min-height: 144px;
+  border-radius: 24px;
+  padding: 20px 18px 18px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 214, 120, 0.3), transparent 14%),
+    radial-gradient(circle at 78% 20%, rgba(255, 255, 255, 0.12), transparent 20%),
+    linear-gradient(135deg, #4d8a3a 0%, #28564d 42%, #25164c 100%);
+  box-shadow: 0 18px 34px rgba(33, 27, 63, 0.28);
+}
+
+.card-preview strong {
+  margin-top: 38px;
+  font-size: 18px;
+  letter-spacing: 0.14em;
+}
+
+.card-preview-meta {
+  margin-top: 20px;
+}
+
+.card-form-copy {
+  margin-top: 22px;
+}
+
+.card-form-stack {
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.card-form-row {
+  gap: 12px;
+}
+
+.card-form-action,
+.amount-action,
+.receipt-screen .bottom-action,
+.source-screen .sheet-action,
+.allocation-screen .bottom-action,
+.allocation-review-screen .bottom-action,
+.card-pin-screen .bottom-action {
+  position: static;
+  margin-top: 18px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent;
+}
+
+.card-pin-screen {
+  justify-content: flex-start;
+}
+
+.card-pin-copy {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.card-pin-illustration {
+  width: 108px;
+  height: 120px;
+  margin-bottom: 16px;
+}
+
+.card-pin-copy p {
+  max-width: 230px;
+  margin-top: 10px;
+}
+
+.card-pin-stage {
+  margin-top: 24px;
+}
+
+.passcode-stage,
+.passcode-stage-tight {
+  align-items: center;
+}
+
+.passcode-dots {
+  margin-bottom: 18px;
+}
+
+.passcode-keypad,
+.passcode-stage-tight .passcode-keypad {
+  width: min(100%, 262px);
+  max-width: 262px;
+  gap: 18px;
+}
+
+.passcode-row,
+.passcode-stage-tight .passcode-row {
+  gap: 18px;
+}
+
+.passcode-key,
+.auth-screen .passcode-key {
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+  border-radius: 16px;
+  background: rgba(255, 253, 249, 0.88);
+  box-shadow: 0 10px 22px rgba(28, 45, 40, 0.08);
+}
+
+.passcode-key.delete {
+  background: transparent;
+  box-shadow: none;
+}
+
+.card-pin-hint {
+  margin-top: 18px;
+  color: #2f7d4a;
+}
+
+.allocation-copy {
+  margin-top: 34px;
+  max-width: none;
+}
+
+.allocation-balance-card {
+  margin-top: 18px;
+  padding: 18px 18px 20px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(143, 223, 196, 0.18), transparent 34%),
+    linear-gradient(180deg, #183831, #102923);
+  box-shadow: 0 18px 36px rgba(17, 34, 29, 0.18);
+}
+
+.allocation-total-row {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  color: #74685f;
+}
+
+.allocation-total-row strong {
+  color: var(--spnd-text-strong);
+}
+
+.allocation-form-stack-polished {
+  margin-bottom: 12px;
+}
+
+.allocation-value-card {
+  grid-template-columns: 58px 1fr;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 22px;
+}
+
+.allocation-value-toggle {
+  height: 56px;
+  background: #e8efeb;
+}
+
+.allocation-value-toggle button {
+  color: #628078;
+}
+
+.allocation-value-toggle button.active {
+  background: var(--spnd-surface-strong);
+  color: var(--spnd-brand-deep);
+}
+
+.allocation-value-input input {
+  margin-top: 10px;
+  font-size: 34px;
+}
+
+.allocation-value-preview {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top-color: rgba(19, 111, 99, 0.12);
+}
+
+.allocation-add-button {
+  margin-top: 8px;
+}
+
+.allocation-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.allocation-item {
+  padding: 14px 16px 14px 54px;
+  border-radius: 20px;
+  background: rgba(255, 252, 247, 0.78);
+  box-shadow: 0 12px 26px rgba(28, 45, 40, 0.08);
+}
+
+.allocation-item p {
+  color: var(--spnd-text-soft);
+}
+
+.allocation-item-open,
+.allocation-item button {
+  color: var(--spnd-brand-deep);
+}
+
+.allocation-review-screen .allocation-copy {
+  margin-bottom: 16px;
+}
+
+.allocation-review-card {
+  padding: 16px 18px;
+  border-radius: 24px;
+}
+
+.allocation-review-row {
+  border-bottom-color: rgba(19, 111, 99, 0.08);
+}
+
+.allocation-review-row.leftover {
+  border-top-color: rgba(19, 111, 99, 0.1);
+}
+
+.allocation-edit-link {
+  margin-top: 14px;
+  color: var(--spnd-brand-deep);
+}
+
+.allocation-success-stage {
+  justify-content: center;
+  gap: 0;
+  padding: 86px 0 42px;
+}
+
+.allocation-success-stage p {
+  max-width: 250px;
+  margin: 12px auto 26px;
+}
+
+.bucket-detail-hero,
+.receipt-amount-hero {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.14), transparent 26%),
+    linear-gradient(160deg, #173730, #102823);
+}
+
+.receipt-card-polished {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), transparent 24%),
+    linear-gradient(180deg, #fffdf9 0%, #f4ede6 100%);
+}
+
+.receipt-amount-hero strong {
+  color: #fcfdfb;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-preview,
+  .allocation-balance-card,
+  .allocation-value-card,
+  .allocation-review-card,
+  .receipt-card-polished,
+  .source-item,
+  .passcode-key {
+    animation: spnd-rise-in 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .primary-button,
+  .inline-add-button,
+  .allocation-item,
+  .bucket-detail-action,
+  .source-item {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .primary-button:not(:disabled):hover,
+  .inline-add-button:hover,
+  .allocation-item:hover,
+  .bucket-detail-action:hover,
+  .source-item:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes spnd-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Allocation UX refinement */
+
+.allocation-copy {
+  text-align: left;
+}
+
+.allocation-copy p {
+  max-width: 31ch;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.allocation-total-row-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.allocation-total-row-grid > div {
+  padding: 14px 16px;
+  border: 1px solid var(--spnd-line);
+  border-radius: 18px;
+  background: rgba(255, 252, 247, 0.72);
+  box-shadow: 0 10px 24px rgba(28, 45, 40, 0.05);
+}
+
+.allocation-total-row-grid span,
+.allocation-section-heading span,
+.allocation-live-copy span {
+  display: block;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #7b8b84;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.allocation-total-row-grid strong,
+.allocation-section-heading strong,
+.allocation-live-copy strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--spnd-text-strong);
+  font-size: 18px;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+
+.allocation-live-card {
+  margin-top: 12px;
+  padding: 16px 16px 14px;
+  border: 1px solid rgba(19, 111, 99, 0.12);
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(226, 243, 236, 0.96), rgba(243, 250, 247, 0.9));
+  box-shadow: 0 12px 26px rgba(19, 111, 99, 0.08);
+}
+
+.allocation-live-copy strong {
+  font-size: 17px;
+  color: var(--spnd-brand-deep);
+}
+
+.allocation-live-meter {
+  height: 9px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(19, 111, 99, 0.1);
+}
+
+.allocation-live-meter span {
+  display: block;
+  height: 100%;
+  min-width: 10%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2fa88c, var(--spnd-brand-deep));
+}
+
+.allocation-section-heading {
+  margin-top: 18px;
+  margin-bottom: 2px;
+}
+
+.allocation-section-heading strong {
+  font-size: 16px;
+}
+
+.allocation-list .empty-panel {
+  padding: 18px 20px;
+  border: 1px dashed rgba(19, 111, 99, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 252, 247, 0.58);
+}
+
+.allocation-item {
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.allocation-item-main {
+  align-items: flex-start;
+}
+
+.allocation-item h3 {
+  margin-bottom: 4px;
+}
+
+.allocation-item p {
+  max-width: 24ch;
+  line-height: 1.42;
+}
+
+.allocation-item > button:last-child {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0 0 12px;
+  border: 0;
+  background: transparent;
+  color: #9e5d54;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.allocation-item > button:last-child:hover,
+.allocation-item > button:last-child:focus-visible {
+  color: #8a3e34;
+}
+
+.allocation-item-open {
+  min-height: 44px;
+  padding-left: 8px;
+}
+
+.allocation-review-screen .allocation-copy,
+.allocation-success-screen .allocation-copy {
+  text-align: center;
+}
+
+.allocation-review-screen .allocation-copy p,
+.allocation-success-screen .allocation-copy p {
+  margin-left: auto;
+  margin-right: auto;
 }

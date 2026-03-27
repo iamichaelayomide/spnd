@@ -1,6 +1,25 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import {
+  ArrowLeft,
+  ArrowRightLeft,
+  BadgeDollarSign,
+  ChevronDown,
+  ChevronRight,
+  CircleCheckBig,
+  CreditCard,
+  Delete,
+  Eye,
+  Landmark,
+  PiggyBank,
+  Plus,
+  ReceiptText,
+  ShieldCheck,
+  WalletCards,
+  X,
+} from 'lucide-react'
 
 const splashVector = 'http://localhost:3845/assets/df675de77f2fa6b6e87fa3126accb46efdf5ebcb.svg'
+const allocationSuccessImage = 'http://localhost:3845/assets/ad587aadd504558cad323bc127c8e9fc5018d306.png'
 
 type Screen =
   | 'splash'
@@ -16,6 +35,12 @@ type Screen =
   | 'home-empty'
   | 'allocate-empty'
   | 'allocate-buckets'
+  | 'allocation-review'
+  | 'allocation-success'
+  | 'bucket-detail'
+  | 'bucket-transfer'
+  | 'bucket-transfer-review'
+  | 'bucket-transfer-success'
   | 'select-source'
   | 'add-card'
   | 'card-pin'
@@ -55,17 +80,24 @@ type FormState = {
   amountToAdd: string
   allocationName: string
   allocationAmount: string
+  allocationMode: 'amount' | 'percent'
+  activeBucketId: string
+  bucketTransferAmount: string
+  bucketSequence: number
   buckets: Bucket[]
   fundsOtp: string
   fundsOtpTimer: number
   lastTransactionAmount: number
   lastTransactionAt: string
+  lastTransactionTitle: string
+  lastTransactionSource: string
+  lastTransactionDestination: string
   totalBalance: number
   unallocatedBalance: number
   completed: boolean
 }
 
-const STORAGE_KEY = 'spnd:onboarding'
+const STORAGE_KEY = 'spnd:onboarding:v2'
 const INTRO_SCREENS: Screen[] = ['intro-plan', 'intro-know', 'intro-purpose', 'intro-setup']
 
 const INTRO_SLIDES = [
@@ -76,11 +108,11 @@ const INTRO_SLIDES = [
 ]
 
 const COUNTRIES = [
-  { name: 'Nigeria', code: '+234' },
-  { name: 'United States', code: '+1' },
-  { name: 'United Kingdom', code: '+44' },
-  { name: 'Canada', code: '+1' },
-]
+  { name: 'Nigeria', code: '+234', phoneLength: 11, placeholder: '07032891651', flag: 'ng' },
+  { name: 'United States', code: '+1', phoneLength: 10, placeholder: '2015550123', flag: 'us' },
+  { name: 'United Kingdom', code: '+44', phoneLength: 11, placeholder: '07400123456', flag: 'uk' },
+  { name: 'Canada', code: '+1', phoneLength: 10, placeholder: '4165550123', flag: 'ca' },
+] as const
 
 function loadState(): FormState {
   const fallback: FormState = {
@@ -105,11 +137,18 @@ function loadState(): FormState {
     amountToAdd: '',
     allocationName: '',
     allocationAmount: '',
+    allocationMode: 'amount',
+    activeBucketId: '',
+    bucketTransferAmount: '',
+    bucketSequence: 0,
     buckets: [],
     fundsOtp: '',
     fundsOtpTimer: 14,
     lastTransactionAmount: 0,
     lastTransactionAt: '',
+    lastTransactionTitle: '',
+    lastTransactionSource: '',
+    lastTransactionDestination: '',
     totalBalance: 0,
     unallocatedBalance: 0,
     completed: false,
@@ -168,6 +207,11 @@ function formatBucketAmount(amount: number) {
   return `$${amount.toLocaleString()}`
 }
 
+function getBucketShare(amount: number, total: number) {
+  if (!total) return 0
+  return Math.round((amount / total) * 100)
+}
+
 function StatusBar() {
   const [time, setTime] = useState(() => new Intl.DateTimeFormat([], { hour: 'numeric', minute: '2-digit' }).format(new Date()))
   useEffect(() => {
@@ -192,9 +236,7 @@ function StatusBar() {
 function BackButton({ onClick }: { onClick: () => void }) {
   return (
     <button className="back-button" type="button" onClick={onClick} aria-label="Go back">
-      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M9.5 3.5L5 8l4.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <ArrowLeft size={16} strokeWidth={1.9} aria-hidden="true" />
     </button>
   )
 }
@@ -216,23 +258,23 @@ function PrimaryButton({ children, onClick, disabled, className = '' }: { childr
 }
 
 function IconCard() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="3" stroke="currentColor" strokeWidth="1.4" /><path d="M3.5 9.5H20.5" stroke="currentColor" strokeWidth="1.4" /><path d="M7 14.5H10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
+  return <CreditCard size={18} strokeWidth={1.8} aria-hidden="true" />
 }
 
 function IconAdd() {
-  return <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3.25v9.5M3.25 8h9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+  return <Plus size={18} strokeWidth={1.8} aria-hidden="true" />
 }
 
 function IconSwap() {
-  return <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 5.25h8.25m0 0L9.75 3.5m2 1.75L9.75 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M12.5 10.75H4.25m0 0 2 1.75m-2-1.75L6.25 9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+  return <ArrowRightLeft size={18} strokeWidth={1.8} aria-hidden="true" />
 }
 
 function IconEye() {
-  return <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M2.1 9s2.5-4.05 6.9-4.05S15.9 9 15.9 9s-2.5 4.05-6.9 4.05S2.1 9 2.1 9Z" stroke="currentColor" strokeWidth="1.4" /><circle cx="9" cy="9" r="2" stroke="currentColor" strokeWidth="1.4" /></svg>
+  return <Eye size={18} strokeWidth={1.8} aria-hidden="true" />
 }
 
 function IconWalletCard() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8.25A3.25 3.25 0 0 1 7.25 5h9.5A3.25 3.25 0 0 1 20 8.25v7.5A3.25 3.25 0 0 1 16.75 19h-9.5A3.25 3.25 0 0 1 4 15.75v-7.5Z" stroke="currentColor" strokeWidth="1.5" /><path d="M4 9.5h16" stroke="currentColor" strokeWidth="1.5" /><path d="M7.25 14.25h4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+  return <WalletCards size={22} strokeWidth={1.8} aria-hidden="true" />
 }
 
 function OtpInput({ id, value, onChange }: { id: string; value: string; onChange: (value: string) => void }) {
@@ -273,7 +315,7 @@ function PasscodeKeypad({ onDigit, onDelete }: { onDigit: (digit: string) => voi
         <div key={rowIndex} className="passcode-row">
           {row.map((key) => {
             if (key === '') return <span key={`empty-${rowIndex}`} className="passcode-key empty" aria-hidden="true" />
-            if (key === 'delete') return <button key="delete" className="passcode-key delete" type="button" onClick={onDelete} aria-label="Delete digit"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 7.5H18a2.5 2.5 0 0 1 2.5 2.5v4A2.5 2.5 0 0 1 18 16.5H9.5L4.5 12l5-4.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" /><path d="m11 10 4 4m0-4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" /></svg></button>
+            if (key === 'delete') return <button key="delete" className="passcode-key delete" type="button" onClick={onDelete} aria-label="Delete digit"><Delete size={18} strokeWidth={1.8} aria-hidden="true" /></button>
             return <button key={key} className="passcode-key" type="button" onClick={() => onDigit(key)}>{key}</button>
           })}
         </div>
@@ -286,9 +328,66 @@ function FormScreen({ title, description, step, onBack, children }: { title: str
   return <div className="screen-content form-screen"><StatusBar /><BackButton onClick={onBack} /><MiniProgress active={step} /><div className="form-copy"><h1>{title}</h1><p>{description}</p></div>{children}</div>
 }
 
+function BucketGlyph({ tone }: { tone: Bucket['tone'] }) {
+  const iconProps = { size: 16, strokeWidth: 1.9, 'aria-hidden': true as const }
+
+  if (tone === 'amber') return <Landmark {...iconProps} />
+  if (tone === 'lilac') return <BadgeDollarSign {...iconProps} />
+  if (tone === 'mint') return <WalletCards {...iconProps} />
+  return <PiggyBank {...iconProps} />
+}
+
+function ReceiptCard({
+  title,
+  helper,
+  amount,
+  source,
+  destination,
+  timestamp,
+}: {
+  title: string
+  helper: string
+  amount: number
+  source: string
+  destination: string
+  timestamp: string
+}) {
+  return (
+    <>
+      <div className="receipt-copy">
+        <div className="receipt-badge"><ReceiptText size={16} strokeWidth={1.9} aria-hidden="true" /> Transaction receipt</div>
+        <h1>{title}</h1>
+        <p>{helper}</p>
+      </div>
+      <div className="receipt-card receipt-card-polished">
+        <div className="receipt-status-row">
+          <div className="receipt-status-copy">
+            <span>Status</span>
+            <strong>Successful</strong>
+          </div>
+          <div className="receipt-status-icon"><CircleCheckBig size={18} strokeWidth={2} aria-hidden="true" /></div>
+        </div>
+        <div className="receipt-amount-hero">
+          <span>Total amount</span>
+          <strong>{formatCurrency(amount)}</strong>
+        </div>
+        <div className="receipt-rows">
+          <div className="receipt-row"><span>Source</span><strong>{source}</strong></div>
+          <div className="receipt-row"><span>Destination</span><strong>{destination}</strong></div>
+          <div className="receipt-row"><span>Date</span><strong>{formatTransactionTime(timestamp)}</strong></div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 export default function App() {
-  const [screen, setScreen] = useState<Screen>('splash')
+  const [screen, setScreen] = useState<Screen>(() => {
+    const initial = loadState()
+    return initial.completed ? (initial.totalBalance > 0 ? 'home-funded' : 'home-empty') : 'splash'
+  })
   const [form, setForm] = useState<FormState>(() => loadState())
+  const selectedCountry = COUNTRIES.find((country) => country.name === form.country) ?? COUNTRIES[0]
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
@@ -311,10 +410,21 @@ export default function App() {
   const hasMoney = form.totalBalance > 0
   const hasSavedCard = form.cardLinked && getCardLast4(form.cardNumber).length === 4
   const hasBuckets = form.buckets.length > 0
-  const allocationAmountValue = Number(form.allocationAmount || 0)
+  const activeBucket = form.buckets.find((bucket) => bucket.id === form.activeBucketId) ?? form.buckets[0] ?? null
+  const allocationRawValue = Number(form.allocationAmount || 0)
+  const allocationAmountValue = form.allocationMode === 'percent'
+    ? Math.round((form.totalBalance * allocationRawValue) / 100)
+    : allocationRawValue
+  const allocatedBalance = Math.max(0, form.totalBalance - form.unallocatedBalance)
+  const projectedUnallocatedBalance = Math.max(0, form.unallocatedBalance - allocationAmountValue)
+  const bucketTransferAmountValue = Number(form.bucketTransferAmount || 0)
   const allocationIsValid = form.allocationName.trim().length >= 2
     && allocationAmountValue > 0
+    && (form.allocationMode === 'amount' || allocationRawValue <= 100)
     && allocationAmountValue <= form.unallocatedBalance
+  const bucketTransferIsValid = Boolean(activeBucket)
+    && bucketTransferAmountValue > 0
+    && bucketTransferAmountValue <= form.unallocatedBalance
   const cardIsValid = form.cardholderName.trim().length >= 3
     && form.cardNumber.replace(/\D/g, '').length === 16
     && form.cardExpiry.length === 5
@@ -335,7 +445,7 @@ export default function App() {
   }
 
   const submitPhone = () => {
-    if (form.phone.length !== 11) return
+    if (form.phone.length !== selectedCountry.phoneLength) return
     updateForm({ otp: '', resendTimer: 14 })
     setScreen('otp')
   }
@@ -394,6 +504,9 @@ export default function App() {
       unallocatedBalance: form.unallocatedBalance + amount,
       lastTransactionAmount: amount,
       lastTransactionAt: new Date().toISOString(),
+      lastTransactionTitle: 'Wallet funding',
+      lastTransactionSource: getSavedCardLabel(form.cardNumber),
+      lastTransactionDestination: 'SPND Wallet',
     })
     setScreen('deposit-success')
   }
@@ -402,7 +515,7 @@ export default function App() {
     if (!allocationIsValid) return
     const tones: Bucket['tone'][] = ['violet', 'amber', 'lilac', 'mint']
     const nextBucket: Bucket = {
-      id: `${Date.now()}-${form.buckets.length}`,
+      id: `bucket-${form.bucketSequence + 1}`,
       name: form.allocationName.trim(),
       amount: allocationAmountValue,
       tone: tones[form.buckets.length % tones.length],
@@ -412,6 +525,8 @@ export default function App() {
       buckets: [...form.buckets, nextBucket],
       allocationName: '',
       allocationAmount: '',
+      allocationMode: 'amount',
+      bucketSequence: form.bucketSequence + 1,
       unallocatedBalance: Math.max(0, form.unallocatedBalance - allocationAmountValue),
     })
   }
@@ -425,6 +540,29 @@ export default function App() {
     })
   }
 
+  const openBucket = (bucketId: string) => {
+    updateForm({ activeBucketId: bucketId, bucketTransferAmount: '' })
+    setScreen('bucket-detail')
+  }
+
+  const submitBucketTransfer = () => {
+    if (!activeBucket || !bucketTransferIsValid) return
+
+    updateForm({
+      buckets: form.buckets.map((bucket) => bucket.id === activeBucket.id
+        ? { ...bucket, amount: bucket.amount + bucketTransferAmountValue }
+        : bucket),
+      unallocatedBalance: Math.max(0, form.unallocatedBalance - bucketTransferAmountValue),
+      bucketTransferAmount: '',
+      lastTransactionAmount: bucketTransferAmountValue,
+      lastTransactionAt: new Date().toISOString(),
+      lastTransactionTitle: `Transfer to ${activeBucket.name}`,
+      lastTransactionSource: 'SPND Wallet',
+      lastTransactionDestination: activeBucket.name,
+    })
+    setScreen('bucket-transfer-success')
+  }
+
   if (screen === 'splash') {
     return (
       <main className="app-shell">
@@ -432,8 +570,10 @@ export default function App() {
           <button className="screen-content splash-screen" type="button" onClick={() => setScreen('intro-plan')} aria-label="Start onboarding">
             <StatusBar />
             <div className="splash-brandmark" aria-hidden="true">
-              <img className="splash-symbol" src={splashVector} alt="" />
-              <h1 className="splash-wordmark">SPND</h1>
+              <span className="splash-symbol-wrap" data-node-id="685:4678">
+                <img className="splash-symbol" src={splashVector} alt="" />
+              </span>
+              <span className="splash-wordmark" data-node-id="642:4411">SPND</span>
             </div>
           </button>
         </section>
@@ -489,17 +629,40 @@ export default function App() {
         <FormScreen title="What's your phone number?" description="Enter your phone number. We will send you a confirmation code there." step={2} onBack={() => setScreen('name')}>
           <div className="phone-row">
             <label className="country-card">
-              <span className="country-flag" aria-hidden="true">{form.country === 'Nigeria' ? <><i className="green" /><i className="white" /><i className="green" /></> : <><i className="grey" /><i className="white" /><i className="grey" /></>}</span>
+              <span className={`country-flag country-flag-${selectedCountry.flag}`} aria-hidden="true">
+                <i className="band-1" />
+                <i className="band-2" />
+                <i className="band-3" />
+              </span>
               <select className="country-select" value={form.country} onChange={(event) => {
                 const selected = COUNTRIES.find((country) => country.name === event.target.value) ?? COUNTRIES[0]
-                updateForm({ country: selected.name, countryCode: selected.code })
+                updateForm({ country: selected.name, countryCode: selected.code, phone: form.phone.slice(0, selected.phoneLength) })
               }}>{COUNTRIES.map((country) => <option key={country.name} value={country.name}>{country.name}</option>)}</select>
-              <span className="country-code">{form.countryCode}</span>
+              <span className="country-meta">
+                <span className="country-name">{selectedCountry.name}</span>
+                <span className="country-code">{form.countryCode}</span>
+              </span>
+              <span className="country-chevron" aria-hidden="true">
+                <ChevronDown size={12} strokeWidth={1.8} aria-hidden="true" />
+              </span>
             </label>
-            <label className="field-card field-card-phone"><span className="field-label">Mobile number</span><input className="field-input" value={form.phone} onChange={(event) => updateForm({ phone: event.target.value.replace(/\D/g, '').slice(0, 11) })} inputMode="numeric" placeholder="07032891651" /></label>
+            <label className="field-card field-card-phone">
+              <span className="field-label">Mobile number</span>
+              <input
+                className="field-input"
+                value={form.phone}
+                onChange={(event) => updateForm({ phone: event.target.value.replace(/\D/g, '').slice(0, selectedCountry.phoneLength) })}
+                inputMode="numeric"
+                placeholder={selectedCountry.placeholder}
+                aria-describedby="phone-helper"
+              />
+            </label>
           </div>
+          <p id="phone-helper" className="phone-helper">
+            Use a valid {selectedCountry.name} mobile number with {selectedCountry.phoneLength} digits.
+          </p>
           <button className="text-link auth-entry-link" type="button">Already have an account? <span className="auth-link-accent">Log in</span></button>
-          <div className="form-action"><PrimaryButton onClick={submitPhone} disabled={form.phone.length !== 11}>Continue</PrimaryButton></div>
+          <div className="form-action"><PrimaryButton onClick={submitPhone} disabled={form.phone.length !== selectedCountry.phoneLength}>Continue</PrimaryButton></div>
         </FormScreen>
       )
     }
@@ -574,7 +737,19 @@ export default function App() {
             </div>
             <div className="wallet-actions-row">
               <button className="wallet-secondary" type="button" onClick={() => setScreen('select-source')}><span>Add funds</span><IconAdd /></button>
-              <button className="wallet-secondary" type="button" disabled={!hasMoney} aria-disabled={!hasMoney}><span>Transfer</span><IconSwap /></button>
+              <button
+                className="wallet-secondary"
+                type="button"
+                disabled={!hasMoney || !hasBuckets}
+                aria-disabled={!hasMoney || !hasBuckets}
+                onClick={() => {
+                  if (!hasBuckets) return
+                  openBucket(form.buckets[0].id)
+                }}
+              >
+                <span>Transfer</span>
+                <IconSwap />
+              </button>
             </div>
             <button className="wallet-primary" type="button" disabled={!hasMoney} aria-disabled={!hasMoney} onClick={() => setScreen(hasBuckets ? 'allocate-buckets' : 'allocate-empty')}>Allocate funds</button>
           </div>
@@ -584,12 +759,13 @@ export default function App() {
             {hasBuckets ? (
               <div className="bucket-grid live-bucket-grid">
                 {form.buckets.map((bucket) => (
-                  <article key={bucket.id} className={`bucket-card bucket-card-${bucket.tone}`}>
-                    <span className="bucket-icon" />
+                  <button key={bucket.id} className={`bucket-card bucket-card-${bucket.tone} bucket-card-button`} type="button" onClick={() => openBucket(bucket.id)}>
+                    <span className="bucket-icon"><BucketGlyph tone={bucket.tone} /></span>
                     <h3>{bucket.name}</h3>
                     <p>{formatBucketAmount(bucket.amount)}</p>
                     <div className="bucket-bar"><span style={{ width: `${Math.max(8, Math.round((bucket.amount / Math.max(1, form.totalBalance)) * 100))}%` }} /></div>
-                  </article>
+                    <span className="bucket-link-row">Open bucket <ChevronRight size={14} strokeWidth={1.9} aria-hidden="true" /></span>
+                  </button>
                 ))}
               </div>
             ) : (
@@ -682,29 +858,73 @@ export default function App() {
         <div className="screen-content allocation-screen">
           <StatusBar />
           <BackButton onClick={() => setScreen(hasBuckets ? 'home-funded' : 'allocate-empty')} />
-          <div className="flow-kicker flow-kicker-centered">Allocate funds</div>
+          <div className="flow-kicker flow-kicker-centered">STEP 3: MATH</div>
           <div className="allocation-copy">
-            <h1>Bucket breakdown</h1>
-            <p>{form.unallocatedBalance > 0 ? 'Add a bucket name and amount, then keep going until all your money has a role.' : 'Your wallet has been fully allocated. You can still remove a bucket and reassign the balance.'}</p>
+            <h1>Assign Value</h1>
+            <p>{form.unallocatedBalance > 0 ? 'Add a bucket, choose amount or percent, and build the plan before you apply it.' : 'Your wallet has been fully allocated. You can still remove a bucket and rebalance the plan before applying it.'}</p>
           </div>
           <div className="allocation-balance-card">
             <span>Unallocated balance</span>
             <strong>{formatCurrency(form.unallocatedBalance)}</strong>
           </div>
-          <div className="field-stack allocation-form-stack">
+          <div className="allocation-total-row allocation-total-row-grid" aria-label="Allocation summary">
+            <div>
+              <span>Total wallet</span>
+              <strong>{formatCurrency(form.totalBalance)}</strong>
+            </div>
+            <div>
+              <span>Already planned</span>
+              <strong>{formatCurrency(allocatedBalance)}</strong>
+            </div>
+          </div>
+          <div className="field-stack allocation-form-stack allocation-form-stack-polished">
             <label className="field-card">
               <span className="field-label">Bucket name</span>
               <input className="field-input" value={form.allocationName} onChange={(event) => updateForm({ allocationName: event.target.value })} placeholder="e.g. Rent" />
             </label>
-            <label className="field-card">
-              <span className="field-label">Amount</span>
-              <input className="field-input" value={form.allocationAmount} onChange={(event) => updateForm({ allocationAmount: formatMoneyInput(event.target.value) })} inputMode="numeric" placeholder="500" />
-            </label>
+            <div className="allocation-value-card">
+              <div className="allocation-value-toggle" role="tablist" aria-label="Allocation input mode">
+                <button className={form.allocationMode === 'amount' ? 'active' : ''} type="button" onClick={() => updateForm({ allocationMode: 'amount', allocationAmount: '' })}>$</button>
+                <button className={form.allocationMode === 'percent' ? 'active' : ''} type="button" onClick={() => updateForm({ allocationMode: 'percent', allocationAmount: '' })}>%</button>
+              </div>
+              <label className="allocation-value-input">
+                <span>{form.allocationMode === 'amount' ? 'Amount' : 'Percent'}</span>
+                <input
+                  value={form.allocationAmount}
+                  onChange={(event) => updateForm({
+                    allocationAmount: form.allocationMode === 'percent'
+                      ? event.target.value.replace(/\D/g, '').slice(0, 3)
+                      : formatMoneyInput(event.target.value),
+                  })}
+                  inputMode="numeric"
+                  placeholder={form.allocationMode === 'amount' ? '500' : '20'}
+                />
+              </label>
+              <div className="allocation-value-preview">
+                <span>Allocates</span>
+                <strong>{formatCurrency(allocationAmountValue)}</strong>
+              </div>
+            </div>
+          </div>
+          <div className="allocation-live-card" aria-live="polite">
+            <div className="allocation-live-copy">
+              <span>After this bucket</span>
+              <strong>{formatCurrency(projectedUnallocatedBalance)} left to assign</strong>
+            </div>
+            <div className="allocation-live-meter" aria-hidden="true">
+              <span style={{ width: `${Math.min(100, Math.max(0, form.totalBalance ? Math.round((allocatedBalance / form.totalBalance) * 100) : 0))}%` }} />
+            </div>
           </div>
           <button className="inline-add-button allocation-add-button" type="button" onClick={addBucket} disabled={!allocationIsValid}>
             <span>Add bucket</span>
             <IconAdd />
           </button>
+          <div className="allocation-section-heading">
+            <div>
+              <span>Planned buckets</span>
+              <strong>{hasBuckets ? `${form.buckets.length} bucket${form.buckets.length === 1 ? '' : 's'}` : 'Nothing planned yet'}</strong>
+            </div>
+          </div>
           <div className="allocation-list">
             {form.buckets.length === 0 ? (
               <div className="empty-panel compact">
@@ -714,17 +934,210 @@ export default function App() {
             ) : (
               form.buckets.map((bucket) => (
                 <article key={bucket.id} className={`allocation-item allocation-item-${bucket.tone}`}>
-                  <div>
-                    <h3>{bucket.name}</h3>
-                    <p>{formatBucketAmount(bucket.amount)}</p>
-                  </div>
+                  <button className="allocation-item-main" type="button" onClick={() => openBucket(bucket.id)}>
+                    <div>
+                      <h3>{bucket.name}</h3>
+                      <p>{formatBucketAmount(bucket.amount)} and {getBucketShare(bucket.amount, form.totalBalance)}% of total</p>
+                    </div>
+                    <span className="allocation-item-open">Open <ChevronRight size={14} strokeWidth={1.9} aria-hidden="true" /></span>
+                  </button>
                   <button type="button" onClick={() => removeBucket(bucket.id)}>Remove</button>
                 </article>
               ))
             )}
           </div>
           <div className="bottom-action">
-            <PrimaryButton onClick={() => setScreen('home-funded')} disabled={!hasBuckets}>Done</PrimaryButton>
+            <PrimaryButton onClick={() => setScreen('allocation-review')} disabled={!hasBuckets}>Review Plan</PrimaryButton>
+          </div>
+        </div>
+      )
+    }
+
+    if (screen === 'allocation-review') {
+      return (
+        <div className="screen-content allocation-review-screen">
+          <StatusBar />
+          <BackButton onClick={() => setScreen('allocate-buckets')} />
+          <div className="flow-kicker flow-kicker-centered">STEP 4: REVIEW</div>
+          <div className="allocation-copy">
+            <h1>The Breakdown</h1>
+            <p>Review the full plan before you commit it to your wallet.</p>
+          </div>
+          <div className="allocation-review-card">
+            <div className="allocation-review-row total">
+              <span>Total inflow</span>
+              <strong>{formatCurrency(form.totalBalance)}</strong>
+            </div>
+            <div className="allocation-review-list">
+              {form.buckets.map((bucket) => (
+                <div key={bucket.id} className="allocation-review-row">
+                  <div className="allocation-review-bucket">
+                    <span className={`allocation-review-icon allocation-review-icon-${bucket.tone}`}><BucketGlyph tone={bucket.tone} /></span>
+                    <div>
+                      <strong>{bucket.name}</strong>
+                      <span>{getBucketShare(bucket.amount, form.totalBalance)}% of total</span>
+                    </div>
+                  </div>
+                  <strong>{formatCurrency(bucket.amount)}</strong>
+                </div>
+              ))}
+            </div>
+            <div className="allocation-review-row total leftover">
+              <span>Leftover</span>
+              <strong>{formatCurrency(form.unallocatedBalance)}</strong>
+            </div>
+          </div>
+          <button className="allocation-edit-link" type="button" onClick={() => setScreen('allocate-buckets')}>Go Back &amp; Edit</button>
+          <div className="bottom-action">
+            <PrimaryButton onClick={() => setScreen('allocation-success')}>Apply Allocation</PrimaryButton>
+          </div>
+        </div>
+      )
+    }
+
+    if (screen === 'allocation-success') {
+      return (
+        <div className="screen-content allocation-success-screen">
+          <StatusBar />
+          <div className="allocation-success-stage">
+            <div className="allocation-success-art" aria-hidden="true">
+              <img src={allocationSuccessImage} alt="" />
+            </div>
+            <h1>Money Allocated</h1>
+            <p>Your intent has been translated into action. The numbers are clear.</p>
+            <PrimaryButton onClick={() => setScreen('home-funded')} className="deposit-primary">View Wallet</PrimaryButton>
+          </div>
+        </div>
+      )
+    }
+
+    if (screen === 'bucket-detail' && activeBucket) {
+      const bucketShare = getBucketShare(activeBucket.amount, form.totalBalance)
+
+      return (
+        <div className="screen-content bucket-detail-screen">
+          <StatusBar />
+          <BackButton onClick={() => setScreen('home-funded')} />
+          <div className="flow-kicker flow-kicker-centered">Bucket details</div>
+          <div className={`bucket-detail-hero bucket-detail-hero-${activeBucket.tone}`}>
+            <div className="bucket-detail-icon"><BucketGlyph tone={activeBucket.tone} /></div>
+            <div className="bucket-detail-copy">
+              <span>{bucketShare}% of wallet balance</span>
+              <h1>{activeBucket.name}</h1>
+              <strong>{formatBucketAmount(activeBucket.amount)}</strong>
+            </div>
+          </div>
+          <div className="bucket-metrics">
+            <div className="bucket-metric-card">
+              <span>Available in wallet</span>
+              <strong>{formatCurrency(form.unallocatedBalance)}</strong>
+            </div>
+            <div className="bucket-metric-card">
+              <span>Latest movement</span>
+              <strong>{form.lastTransactionDestination === activeBucket.name ? formatCurrency(form.lastTransactionAmount) : 'No transfer yet'}</strong>
+            </div>
+          </div>
+          <div className="bucket-detail-actions">
+            <button className="bucket-detail-action primary" type="button" onClick={() => setScreen('bucket-transfer')}>
+              <span className="bucket-detail-action-icon"><Plus size={18} strokeWidth={1.9} aria-hidden="true" /></span>
+              <span><strong>Move money in</strong><small>Transfer from your unallocated wallet balance</small></span>
+            </button>
+            <button className="bucket-detail-action" type="button" onClick={() => setScreen('allocate-buckets')}>
+              <span className="bucket-detail-action-icon"><ShieldCheck size={18} strokeWidth={1.9} aria-hidden="true" /></span>
+              <span><strong>Edit allocation</strong><small>Rename, remove, or rebalance this bucket</small></span>
+            </button>
+          </div>
+          <div className="bucket-activity-panel">
+            <div className="section-heading"><h2>Bucket activity</h2></div>
+            {form.lastTransactionDestination === activeBucket.name ? (
+              <div className="activity-row">
+                <div className="activity-left">
+                  <span className="activity-badge" />
+                  <div>
+                    <h3>{form.lastTransactionTitle}</h3>
+                    <p>{formatTransactionTime(form.lastTransactionAt)}</p>
+                  </div>
+                </div>
+                <span className="activity-amount activity-amount-positive">+{formatCurrency(form.lastTransactionAmount)}</span>
+              </div>
+            ) : (
+              <div className="empty-panel compact">
+                <h3>No transfers yet</h3>
+                <p>This bucket is ready. Move money into it when you are ready to fund it.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    if (screen === 'bucket-transfer' && activeBucket) {
+      return (
+        <div className="screen-content amount-screen bucket-transfer-screen">
+          <StatusBar />
+          <BackButton onClick={() => setScreen('bucket-detail')} />
+          <div className="flow-kicker flow-kicker-centered">Transfer - Step 1 of 2</div>
+          <div className="amount-copy">
+            <h1>How much should go into {activeBucket.name}?</h1>
+            <p>Move only from your unallocated wallet balance so your plan stays accurate.</p>
+          </div>
+          <div className="source-summary source-summary-split">
+            <div><span>From</span><strong>SPND Wallet</strong></div>
+            <div><span>Available</span><strong>{formatCurrency(form.unallocatedBalance)}</strong></div>
+          </div>
+          <div className={`bucket-inline-card bucket-inline-card-${activeBucket.tone}`}>
+            <span className="bucket-inline-icon"><BucketGlyph tone={activeBucket.tone} /></span>
+            <div><span>Destination bucket</span><strong>{activeBucket.name}</strong></div>
+          </div>
+          <label className="amount-field">
+            <span>$</span>
+            <input value={form.bucketTransferAmount} onChange={(event) => updateForm({ bucketTransferAmount: formatMoneyInput(event.target.value) })} inputMode="numeric" placeholder="0" />
+          </label>
+          <div className="quick-amounts">{['100', '250', '500'].map((amount) => <button key={amount} className={form.bucketTransferAmount === amount ? 'active' : ''} type="button" onClick={() => updateForm({ bucketTransferAmount: amount })}>{formatCurrency(Number(amount))}</button>)}</div>
+          <div className="bottom-action amount-action"><PrimaryButton onClick={() => setScreen('bucket-transfer-review')} disabled={!bucketTransferIsValid}>Review transfer</PrimaryButton></div>
+        </div>
+      )
+    }
+
+    if (screen === 'bucket-transfer-review' && activeBucket) {
+      return (
+        <div className="screen-content auth-screen bucket-review-screen">
+          <StatusBar />
+          <BackButton onClick={() => setScreen('bucket-transfer')} />
+          <AuthProgress />
+          <div className="flow-kicker flow-kicker-auth">Transfer - Step 2 of 2</div>
+          <div className="auth-copy">
+            <h1>Review transfer</h1>
+            <p>Check the destination and amount before you finalize the movement.</p>
+          </div>
+          <div className="deposit-review-card transfer-review-card">
+            <div><span>Amount</span><strong>{formatCurrency(bucketTransferAmountValue)}</strong></div>
+            <div><span>From</span><strong>SPND Wallet</strong></div>
+            <div><span>To</span><strong>{activeBucket.name}</strong></div>
+          </div>
+          <div className="transfer-review-note">
+            <ShieldCheck size={18} strokeWidth={1.9} aria-hidden="true" />
+            <p>This keeps your total balance unchanged and only moves money into the selected bucket.</p>
+          </div>
+          <div className="bottom-action auth-action"><PrimaryButton onClick={submitBucketTransfer} disabled={!bucketTransferIsValid} className="auth-button">Confirm transfer</PrimaryButton></div>
+        </div>
+      )
+    }
+
+    if (screen === 'bucket-transfer-success') {
+      return (
+        <div className="screen-content deposit-success-screen bucket-transfer-success-screen">
+          <StatusBar />
+          <button className="close-button close-button-corner" type="button" onClick={() => setScreen('home-funded')} aria-label="Close">
+            <X size={18} strokeWidth={2} aria-hidden="true" />
+          </button>
+          <div className="deposit-success-stage">
+            <div className="deposit-success-icon deposit-success-icon-lucide"><CircleCheckBig size={46} strokeWidth={1.9} aria-hidden="true" /></div>
+            <h1>Transfer successful</h1>
+            <p>{form.lastTransactionDestination} has been funded from your wallet.</p>
+            <div className="deposit-amount-card"><span>Amount moved</span><strong>{formatCurrency(form.lastTransactionAmount)}</strong></div>
+            <PrimaryButton onClick={() => setScreen('receipt')} className="deposit-primary">View receipt</PrimaryButton>
+            <button className="deposit-secondary" type="button" onClick={() => setScreen('bucket-detail')}>Back to bucket</button>
           </div>
         </div>
       )
@@ -855,18 +1268,17 @@ export default function App() {
       return (
         <div className="screen-content receipt-screen">
           <StatusBar />
-          <BackButton onClick={() => setScreen('deposit-success')} />
-          <div className="receipt-copy">
-            <h1>Transaction receipt</h1>
-            <p>Your wallet has been funded successfully. Here is the transaction summary.</p>
-          </div>
-          <div className="receipt-card">
-            <div className="receipt-row"><span>Status</span><strong>Successful</strong></div>
-            <div className="receipt-row"><span>Amount</span><strong>{formatCurrency(form.lastTransactionAmount)}</strong></div>
-            <div className="receipt-row"><span>Source</span><strong>{getSavedCardLabel(form.cardNumber)}</strong></div>
-            <div className="receipt-row"><span>Destination</span><strong>SPND Wallet</strong></div>
-            <div className="receipt-row"><span>Date</span><strong>{formatTransactionTime(form.lastTransactionAt)}</strong></div>
-          </div>
+          <BackButton onClick={() => setScreen(form.lastTransactionDestination === 'SPND Wallet' ? 'deposit-success' : 'bucket-transfer-success')} />
+          <ReceiptCard
+            title={form.lastTransactionTitle || 'Transaction receipt'}
+            helper={form.lastTransactionDestination === 'SPND Wallet'
+              ? 'Your wallet has been funded successfully. Here is the transaction summary.'
+              : 'Your bucket transfer is complete. Here is the transaction summary.'}
+            amount={form.lastTransactionAmount}
+            source={form.lastTransactionSource || getSavedCardLabel(form.cardNumber)}
+            destination={form.lastTransactionDestination || 'SPND Wallet'}
+            timestamp={form.lastTransactionAt}
+          />
           <div className="bottom-action"><PrimaryButton onClick={() => setScreen('home-funded')}>Done</PrimaryButton></div>
         </div>
       )
@@ -876,7 +1288,7 @@ export default function App() {
       <div className="screen-content deposit-success-screen">
         <StatusBar />
         <button className="close-button close-button-corner" type="button" onClick={() => setScreen('home-funded')} aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>
+          <X size={18} strokeWidth={2} aria-hidden="true" />
         </button>
         <div className="deposit-success-stage">
           <img className="deposit-success-icon" src="/spnd/image 16.svg" alt="" />
