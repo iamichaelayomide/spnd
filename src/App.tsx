@@ -14,12 +14,14 @@ import {
   Plus,
   ReceiptText,
   ShieldCheck,
+  UtensilsCrossed,
   WalletCards,
+  CarFront,
+  Wifi,
   X,
 } from 'lucide-react'
 
 const splashVector = 'http://localhost:3845/assets/df675de77f2fa6b6e87fa3126accb46efdf5ebcb.svg'
-const allocationSuccessImage = 'http://localhost:3845/assets/ad587aadd504558cad323bc127c8e9fc5018d306.png'
 
 type Screen =
   | 'splash'
@@ -337,6 +339,27 @@ function BucketGlyph({ tone }: { tone: Bucket['tone'] }) {
   return <PiggyBank {...iconProps} />
 }
 
+function PurposeFlowHeader({ onRestart }: { onRestart?: () => void }) {
+  return (
+    <div className="purpose-flow-header">
+      <div className="purpose-flow-chip">
+        <span className="purpose-flow-chip-icon"><WalletCards size={12} strokeWidth={1.8} aria-hidden="true" /></span>
+        <span>Purpose</span>
+      </div>
+      {onRestart ? <button className="purpose-flow-restart" type="button" onClick={onRestart}>Restart</button> : null}
+    </div>
+  )
+}
+
+function AllocationToneIcon({ tone }: { tone: Bucket['tone'] }) {
+  const iconProps = { size: 11, strokeWidth: 1.9, 'aria-hidden': true as const }
+
+  if (tone === 'amber') return <CarFront {...iconProps} />
+  if (tone === 'lilac') return <Wifi {...iconProps} />
+  if (tone === 'mint') return <Landmark {...iconProps} />
+  return <UtensilsCrossed {...iconProps} />
+}
+
 function ReceiptCard({
   title,
   helper,
@@ -415,8 +438,6 @@ export default function App() {
   const allocationAmountValue = form.allocationMode === 'percent'
     ? Math.round((form.totalBalance * allocationRawValue) / 100)
     : allocationRawValue
-  const allocatedBalance = Math.max(0, form.totalBalance - form.unallocatedBalance)
-  const projectedUnallocatedBalance = Math.max(0, form.unallocatedBalance - allocationAmountValue)
   const bucketTransferAmountValue = Number(form.bucketTransferAmount || 0)
   const allocationIsValid = form.allocationName.trim().length >= 2
     && allocationAmountValue > 0
@@ -511,6 +532,20 @@ export default function App() {
     setScreen('deposit-success')
   }
 
+  const restartAllocationFlow = () => {
+    updateForm({
+      allocationName: '',
+      allocationAmount: '',
+      allocationMode: 'amount',
+      activeBucketId: '',
+      bucketTransferAmount: '',
+      bucketSequence: 0,
+      buckets: [],
+      unallocatedBalance: form.totalBalance,
+    })
+    setScreen('allocate-buckets')
+  }
+
   const addBucket = () => {
     if (!allocationIsValid) return
     const tones: Bucket['tone'][] = ['violet', 'amber', 'lilac', 'mint']
@@ -528,15 +563,6 @@ export default function App() {
       allocationMode: 'amount',
       bucketSequence: form.bucketSequence + 1,
       unallocatedBalance: Math.max(0, form.unallocatedBalance - allocationAmountValue),
-    })
-  }
-
-  const removeBucket = (id: string) => {
-    const bucket = form.buckets.find((entry) => entry.id === id)
-    if (!bucket) return
-    updateForm({
-      buckets: form.buckets.filter((entry) => entry.id !== id),
-      unallocatedBalance: form.unallocatedBalance + bucket.amount,
     })
   }
 
@@ -855,98 +881,77 @@ export default function App() {
 
     if (screen === 'allocate-buckets') {
       return (
-        <div className="screen-content allocation-screen">
+        <div className="screen-content allocation-screen figma-allocation-screen">
           <StatusBar />
-          <BackButton onClick={() => setScreen(hasBuckets ? 'home-funded' : 'allocate-empty')} />
-          <div className="flow-kicker flow-kicker-centered">STEP 3: MATH</div>
-          <div className="allocation-copy">
-            <h1>Assign Value</h1>
-            <p>{form.unallocatedBalance > 0 ? 'Add a bucket, choose amount or percent, and build the plan before you apply it.' : 'Your wallet has been fully allocated. You can still remove a bucket and rebalance the plan before applying it.'}</p>
-          </div>
-          <div className="allocation-balance-card">
-            <span>Unallocated balance</span>
-            <strong>{formatCurrency(form.unallocatedBalance)}</strong>
-          </div>
-          <div className="allocation-total-row allocation-total-row-grid" aria-label="Allocation summary">
-            <div>
-              <span>Total wallet</span>
+          <PurposeFlowHeader onRestart={hasBuckets ? restartAllocationFlow : undefined} />
+          <div className="figma-allocation-intro">
+            <div className="figma-allocation-copy">
+              <span>STEP 3: MATH</span>
+              <h1>Assign Value</h1>
+            </div>
+            <div className="figma-allocation-total">
+              <span>TOTAL</span>
               <strong>{formatCurrency(form.totalBalance)}</strong>
             </div>
-            <div>
-              <span>Already planned</span>
-              <strong>{formatCurrency(allocatedBalance)}</strong>
-            </div>
           </div>
-          <div className="field-stack allocation-form-stack allocation-form-stack-polished">
-            <label className="field-card">
-              <span className="field-label">Bucket name</span>
-              <input className="field-input" value={form.allocationName} onChange={(event) => updateForm({ allocationName: event.target.value })} placeholder="e.g. Rent" />
-            </label>
-            <div className="allocation-value-card">
-              <div className="allocation-value-toggle" role="tablist" aria-label="Allocation input mode">
-                <button className={form.allocationMode === 'amount' ? 'active' : ''} type="button" onClick={() => updateForm({ allocationMode: 'amount', allocationAmount: '' })}>$</button>
-                <button className={form.allocationMode === 'percent' ? 'active' : ''} type="button" onClick={() => updateForm({ allocationMode: 'percent', allocationAmount: '' })}>%</button>
+          <div className="figma-allocation-card-list">
+            <article className="figma-allocation-card figma-allocation-card-draft">
+              <div className="figma-allocation-card-top">
+                <label className="figma-allocation-name">
+                  <AllocationToneIcon tone="violet" />
+                  <input value={form.allocationName} onChange={(event) => updateForm({ allocationName: event.target.value })} placeholder="Bucket name" />
+                </label>
+                <span className="figma-allocation-pill">{formatCurrency(allocationAmountValue)}</span>
               </div>
-              <label className="allocation-value-input">
-                <span>{form.allocationMode === 'amount' ? 'Amount' : 'Percent'}</span>
-                <input
-                  value={form.allocationAmount}
-                  onChange={(event) => updateForm({
-                    allocationAmount: form.allocationMode === 'percent'
-                      ? event.target.value.replace(/\D/g, '').slice(0, 3)
-                      : formatMoneyInput(event.target.value),
-                  })}
-                  inputMode="numeric"
-                  placeholder={form.allocationMode === 'amount' ? '500' : '20'}
-                />
-              </label>
-              <div className="allocation-value-preview">
-                <span>Allocates</span>
-                <strong>{formatCurrency(allocationAmountValue)}</strong>
+              <div className="figma-allocation-card-bottom">
+                <div className="figma-allocation-segmented" role="tablist" aria-label="Allocation input mode">
+                  <button className={form.allocationMode === 'amount' ? 'active' : ''} type="button" onClick={() => updateForm({ allocationMode: 'amount', allocationAmount: '' })}>$</button>
+                  <button className={form.allocationMode === 'percent' ? 'active' : ''} type="button" onClick={() => updateForm({ allocationMode: 'percent', allocationAmount: '' })}>%</button>
+                </div>
+                <label className="figma-allocation-input">
+                  <input
+                    value={form.allocationAmount}
+                    onChange={(event) => updateForm({
+                      allocationAmount: form.allocationMode === 'percent'
+                        ? event.target.value.replace(/\D/g, '').slice(0, 3)
+                        : formatMoneyInput(event.target.value),
+                    })}
+                    inputMode="numeric"
+                    placeholder="0"
+                  />
+                </label>
               </div>
-            </div>
+            </article>
+            {form.buckets.map((bucket) => (
+              <article key={bucket.id} className={`figma-allocation-card figma-allocation-card-${bucket.tone}`}>
+                <div className="figma-allocation-card-top">
+                  <div className="figma-allocation-name figma-allocation-name-static">
+                    <AllocationToneIcon tone={bucket.tone} />
+                    <span>{bucket.name}</span>
+                  </div>
+                  <span className="figma-allocation-pill">{formatBucketAmount(bucket.amount)}</span>
+                </div>
+                <div className="figma-allocation-card-bottom">
+                  <div className="figma-allocation-segmented" aria-hidden="true">
+                    <button className="active" type="button">$</button>
+                    <button type="button">%</button>
+                  </div>
+                  <div className="figma-allocation-input figma-allocation-input-static">{bucket.amount}</div>
+                </div>
+              </article>
+            ))}
           </div>
-          <div className="allocation-live-card" aria-live="polite">
-            <div className="allocation-live-copy">
-              <span>After this bucket</span>
-              <strong>{formatCurrency(projectedUnallocatedBalance)} left to assign</strong>
+          <div className="figma-allocation-footer">
+            <div className="figma-allocation-balance-row">
+              <span>Unassigned Money</span>
+              <strong>{formatCurrency(form.unallocatedBalance)}</strong>
             </div>
-            <div className="allocation-live-meter" aria-hidden="true">
-              <span style={{ width: `${Math.min(100, Math.max(0, form.totalBalance ? Math.round((allocatedBalance / form.totalBalance) * 100) : 0))}%` }} />
+            <div className="figma-allocation-balance-bar" aria-hidden="true">
+              <span style={{ width: `${Math.min(100, Math.max(0, form.totalBalance ? Math.round((form.unallocatedBalance / form.totalBalance) * 100) : 0))}%` }} />
             </div>
+            <button className="figma-allocation-add-link" type="button" onClick={addBucket} disabled={!allocationIsValid}>Add current bucket</button>
           </div>
-          <button className="inline-add-button allocation-add-button" type="button" onClick={addBucket} disabled={!allocationIsValid}>
-            <span>Add bucket</span>
-            <IconAdd />
-          </button>
-          <div className="allocation-section-heading">
-            <div>
-              <span>Planned buckets</span>
-              <strong>{hasBuckets ? `${form.buckets.length} bucket${form.buckets.length === 1 ? '' : 's'}` : 'Nothing planned yet'}</strong>
-            </div>
-          </div>
-          <div className="allocation-list">
-            {form.buckets.length === 0 ? (
-              <div className="empty-panel compact">
-                <h3>No allocations yet</h3>
-                <p>Your first bucket will show up here.</p>
-              </div>
-            ) : (
-              form.buckets.map((bucket) => (
-                <article key={bucket.id} className={`allocation-item allocation-item-${bucket.tone}`}>
-                  <button className="allocation-item-main" type="button" onClick={() => openBucket(bucket.id)}>
-                    <div>
-                      <h3>{bucket.name}</h3>
-                      <p>{formatBucketAmount(bucket.amount)} and {getBucketShare(bucket.amount, form.totalBalance)}% of total</p>
-                    </div>
-                    <span className="allocation-item-open">Open <ChevronRight size={14} strokeWidth={1.9} aria-hidden="true" /></span>
-                  </button>
-                  <button type="button" onClick={() => removeBucket(bucket.id)}>Remove</button>
-                </article>
-              ))
-            )}
-          </div>
-          <div className="bottom-action">
+          <div className="bottom-action figma-allocation-action">
             <PrimaryButton onClick={() => setScreen('allocation-review')} disabled={!hasBuckets}>Review Plan</PrimaryButton>
           </div>
         </div>
@@ -955,13 +960,12 @@ export default function App() {
 
     if (screen === 'allocation-review') {
       return (
-        <div className="screen-content allocation-review-screen">
+        <div className="screen-content allocation-review-screen figma-review-screen">
           <StatusBar />
-          <BackButton onClick={() => setScreen('allocate-buckets')} />
-          <div className="flow-kicker flow-kicker-centered">STEP 4: REVIEW</div>
+          <PurposeFlowHeader onRestart={restartAllocationFlow} />
           <div className="allocation-copy">
+            <span className="figma-step-kicker">STEP 4: REVIEW</span>
             <h1>The Breakdown</h1>
-            <p>Review the full plan before you commit it to your wallet.</p>
           </div>
           <div className="allocation-review-card">
             <div className="allocation-review-row total">
@@ -972,7 +976,7 @@ export default function App() {
               {form.buckets.map((bucket) => (
                 <div key={bucket.id} className="allocation-review-row">
                   <div className="allocation-review-bucket">
-                    <span className={`allocation-review-icon allocation-review-icon-${bucket.tone}`}><BucketGlyph tone={bucket.tone} /></span>
+                    <span className={`allocation-review-icon allocation-review-icon-${bucket.tone}`}><AllocationToneIcon tone={bucket.tone} /></span>
                     <div>
                       <strong>{bucket.name}</strong>
                       <span>{getBucketShare(bucket.amount, form.totalBalance)}% of total</span>
@@ -988,7 +992,7 @@ export default function App() {
             </div>
           </div>
           <button className="allocation-edit-link" type="button" onClick={() => setScreen('allocate-buckets')}>Go Back &amp; Edit</button>
-          <div className="bottom-action">
+          <div className="bottom-action figma-review-action">
             <PrimaryButton onClick={() => setScreen('allocation-success')}>Apply Allocation</PrimaryButton>
           </div>
         </div>
@@ -997,14 +1001,14 @@ export default function App() {
 
     if (screen === 'allocation-success') {
       return (
-        <div className="screen-content allocation-success-screen">
+        <div className="screen-content allocation-success-screen figma-success-screen">
           <StatusBar />
           <div className="allocation-success-stage">
             <div className="allocation-success-art" aria-hidden="true">
-              <img src={allocationSuccessImage} alt="" />
+              <img src="/spnd/image 16.svg" alt="" />
             </div>
             <h1>Money Allocated</h1>
-            <p>Your intent has been translated into action. The numbers are clear.</p>
+            <p>Your intent has been translated into action. The Numbers are clear.</p>
             <PrimaryButton onClick={() => setScreen('home-funded')} className="deposit-primary">View Wallet</PrimaryButton>
           </div>
         </div>
@@ -1226,18 +1230,22 @@ export default function App() {
 
     if (screen === 'amount') {
       return (
-        <div className="screen-content amount-screen">
+        <div className="screen-content amount-screen figma-inflow-screen">
           <StatusBar />
-          <BackButton onClick={() => setScreen('select-source')} />
-          <div className="flow-kicker flow-kicker-centered">Fund wallet - Step 2 of 3</div>
-          <div className="amount-copy"><h1>Enter amount to add</h1><p>Choose how much you want to move into your SPND wallet.</p></div>
-          <div className="source-summary"><span>Funding source</span><strong>{getSavedCardLabel(form.cardNumber)}</strong></div>
-          <label className="amount-field"><span>$</span><input value={form.amountToAdd} onChange={(event) => updateForm({ amountToAdd: formatMoneyInput(event.target.value) })} inputMode="numeric" placeholder="0" /></label>
-          <div className="quick-amounts">{['500', '1000', '10000'].map((amount) => <button key={amount} className={form.amountToAdd === amount ? 'active' : ''} type="button" onClick={() => updateForm({ amountToAdd: amount })}>{formatCurrency(Number(amount))}</button>)}</div>
-          <div className="bottom-action amount-action"><PrimaryButton onClick={() => {
+          <PurposeFlowHeader />
+          <div className="figma-inflow-copy">
+            <span className="figma-step-kicker">STEP 1: INFLOW</span>
+            <h1>How much do you want to allocate?</h1>
+          </div>
+          <label className="figma-inflow-field">
+            <span>$</span>
+            <input value={form.amountToAdd} onChange={(event) => updateForm({ amountToAdd: formatMoneyInput(event.target.value) })} inputMode="numeric" placeholder="" />
+          </label>
+          <p className="figma-inflow-helper">Enter your total income, deposit, or windfall.</p>
+          <div className="bottom-action amount-action figma-inflow-action"><PrimaryButton onClick={() => {
             updateForm({ fundsOtp: '', fundsOtpTimer: 14 })
             setScreen('funds-otp')
-          }} disabled={!form.amountToAdd}>Continue</PrimaryButton></div>
+          }} disabled={!form.amountToAdd}>Define Intent</PrimaryButton></div>
         </div>
       )
     }

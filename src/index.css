@@ -6183,3 +6183,354 @@ body {
 .sheet-action {
   margin-top: 20px;
 }
+
+/* Figma allocation flow implementation */
+
+.figma-step-kicker {
+  display: block;
+  color: #8d7f7f;
+  font-size: 10.125px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.purpose-flow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 34px;
+}
+
+.purpose-flow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #8d7f7f;
+  font-size: 10.125px;
+  line-height: 1;
+}
+
+.purpose-flow-chip-icon {
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #e2cffc;
+  color: #6f38b2;
+}
+
+.purpose-flow-restart {
+  border: 0;
+  background: transparent;
+  color: #898282;
+  font-size: 8px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.figma-inflow-screen,
+.figma-allocation-screen,
+.figma-review-screen,
+.figma-success-screen {
+  background: #f7f2f6;
+}
+
+.figma-inflow-copy,
+.figma-allocation-intro,
+.figma-review-screen .allocation-copy {
+  margin-top: 34px;
+}
+
+.figma-inflow-copy h1,
+.figma-allocation-copy h1,
+.figma-review-screen .allocation-copy h1 {
+  margin-top: 8px;
+}
+
+.figma-inflow-field {
+  margin-top: 16px;
+  min-height: 63px;
+  border: 0.633px solid #e2e0e0;
+  border-radius: 10.125px;
+  background: #fafaf9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+}
+
+.figma-inflow-field span,
+.figma-inflow-field input {
+  color: #898282;
+  font-size: 20.251px;
+  line-height: 1;
+}
+
+.figma-inflow-field input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: right;
+  outline: none;
+}
+
+.figma-inflow-helper {
+  margin: 12px 0 0;
+  color: #898282;
+  font-size: 10.125px;
+  line-height: 1.3;
+}
+
+.figma-inflow-action {
+  margin-top: 32px;
+}
+
+.figma-inflow-action .primary-button:disabled {
+  background: #e8ddee;
+  color: #9b8ea6;
+}
+
+.figma-allocation-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.figma-allocation-copy h1 {
+  margin: 12px 0 0;
+  color: #000;
+  font-size: 20.251px;
+  line-height: 1;
+}
+
+.figma-allocation-total {
+  padding-top: 4px;
+  text-align: left;
+}
+
+.figma-allocation-total span {
+  display: block;
+  color: #8d7f7f;
+  font-size: 8px;
+  line-height: 1;
+}
+
+.figma-allocation-total strong {
+  display: block;
+  margin-top: 8px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.figma-allocation-card-list {
+  margin-top: 13px;
+  display: grid;
+  gap: 12px;
+}
+
+.figma-allocation-card {
+  border: 0.633px solid #e2e0e0;
+  border-radius: 10.125px;
+  background: #fdfdfc;
+  padding: 18px 17px;
+}
+
+.figma-allocation-card-top,
+.figma-allocation-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.figma-allocation-card-bottom {
+  margin-top: 14px;
+}
+
+.figma-allocation-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  color: #3b3030;
+  font-size: 13px;
+}
+
+.figma-allocation-name input {
+  width: 140px;
+  border: 0;
+  background: transparent;
+  color: #3b3030;
+  font-size: 13px;
+  outline: none;
+}
+
+.figma-allocation-name-static span {
+  display: block;
+}
+
+.figma-allocation-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 29px;
+  height: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  background: #e2cffc;
+  color: #3b3030;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.figma-allocation-segmented {
+  width: 51px;
+  height: 26px;
+  border-radius: 4px;
+  background: #f0efef;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+}
+
+.figma-allocation-segmented button {
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #bfb6b6;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.figma-allocation-segmented button.active {
+  background: #fdfdfc;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  color: #3b3030;
+}
+
+.figma-allocation-input {
+  width: 163px;
+  height: 30px;
+  border: 0.633px solid #e2e0e0;
+  border-radius: 4px;
+  background: #f0efef;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 12px;
+}
+
+.figma-allocation-input input,
+.figma-allocation-input-static {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #bfb6b6;
+  font-size: 12px;
+  line-height: 1;
+  text-align: right;
+  outline: none;
+}
+
+.figma-allocation-footer {
+  margin-top: 8px;
+  padding: 24px 4px 0;
+  background: #fff;
+}
+
+.figma-allocation-balance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.figma-allocation-balance-row span {
+  color: #3b3030;
+}
+
+.figma-allocation-balance-row strong {
+  color: #5a9463;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.figma-allocation-balance-bar {
+  height: 12px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 39px;
+  background: #f0efef;
+}
+
+.figma-allocation-balance-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d8bff7, #5a9463);
+}
+
+.figma-allocation-add-link {
+  margin-top: 8px;
+  border: 0;
+  background: transparent;
+  color: #8d7f7f;
+  font-size: 10px;
+}
+
+.figma-allocation-action,
+.figma-review-action {
+  margin-top: 16px;
+  padding-top: 0;
+}
+
+.figma-review-screen .allocation-copy {
+  text-align: left;
+}
+
+.figma-review-screen .allocation-copy h1 {
+  margin: 12px 0 0;
+  color: #000;
+  font-size: 20.251px;
+}
+
+.figma-review-screen .allocation-review-card {
+  margin-top: 24px;
+  border: 0.633px solid #e2e0e0;
+  box-shadow: none;
+}
+
+.figma-review-screen .allocation-edit-link {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6f38b2;
+}
+
+.figma-success-screen .allocation-success-stage {
+  padding-top: 99px;
+}
+
+.figma-success-screen .allocation-success-art {
+  width: 95px;
+  height: 110px;
+}
+
+.figma-success-screen .allocation-success-stage h1 {
+  margin-top: 16px;
+  color: #000;
+  font-size: 20.251px;
+  line-height: 1;
+}
+
+.figma-success-screen .allocation-success-stage p {
+  max-width: 273px;
+  margin: 16px auto 20px;
+  color: #898282;
+  font-size: 13px;
+  line-height: 14px;
+}
