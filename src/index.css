@@ -6848,3 +6848,190 @@ body {
   right: 29px;
   bottom: 193px;
 }
+
+/* Flow cleanup: shared navigation, purple surfaces, bucket detail empty state */
+
+.purpose-flow-header {
+  display: grid;
+  grid-template-columns: 24px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.purpose-flow-header .back-button,
+.allocation-success-screen > .back-button,
+.deposit-success-screen > .back-button,
+.bucket-transfer-success-screen > .back-button,
+.bucket-detail-screen > .back-button,
+.bucket-transfer-screen > .back-button,
+.bucket-review-screen > .back-button,
+.receipt-screen > .back-button {
+  position: absolute;
+  top: 74px;
+  left: 19px;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  color: #231533;
+  box-shadow: none;
+}
+
+.purpose-flow-header .back-button {
+  position: static;
+}
+
+.purpose-flow-spacer {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.purpose-flow-chip {
+  justify-self: center;
+}
+
+.purpose-flow-restart {
+  justify-self: end;
+}
+
+.figma-inflow-screen,
+.figma-allocation-screen,
+.figma-review-screen,
+.figma-success-screen,
+.bucket-detail-screen,
+.bucket-transfer-screen,
+.bucket-review-screen,
+.bucket-transfer-success-screen,
+.source-screen,
+.add-card-screen,
+.card-success-screen,
+.receipt-screen,
+.deposit-success-screen {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 28%),
+    linear-gradient(180deg, #fbf7fb 0%, #f4edf5 100%);
+}
+
+.bucket-detail-hero {
+  margin-top: 76px;
+  padding: 24px 22px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.22), transparent 26%),
+    linear-gradient(155deg, #57249b 0%, #3f1377 52%, #2f0a5e 100%);
+  box-shadow: 0 18px 40px rgba(68, 22, 126, 0.18);
+}
+
+.bucket-detail-hero-violet,
+.bucket-detail-hero-amber,
+.bucket-detail-hero-lilac,
+.bucket-detail-hero-mint {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.22), transparent 26%),
+    linear-gradient(155deg, #57249b 0%, #3f1377 52%, #2f0a5e 100%);
+}
+
+.bucket-detail-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.bucket-detail-copy span {
+  color: rgba(247, 238, 255, 0.84);
+}
+
+.bucket-detail-copy h1,
+.bucket-detail-copy strong {
+  color: #fff;
+}
+
+.bucket-metric-card,
+.bucket-inline-card,
+.bucket-detail-action,
+.bucket-activity-panel .empty-panel {
+  border: 1px solid rgba(106, 70, 144, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 30px rgba(60, 28, 102, 0.08);
+}
+
+.bucket-metric-card span,
+.bucket-detail-action small,
+.bucket-activity-panel .empty-panel p {
+  color: #7b7088;
+}
+
+.bucket-metric-card strong,
+.bucket-detail-action,
+.bucket-detail-action strong,
+.bucket-activity-panel .empty-panel h3,
+.section-heading h2 {
+  color: #261b33;
+}
+
+.bucket-detail-action.primary {
+  background: linear-gradient(180deg, #f4edff 0%, #ede1ff 100%);
+}
+
+.bucket-detail-action-icon {
+  background: rgba(89, 35, 154, 0.11);
+  color: #5b239a;
+}
+
+.bucket-activity-panel {
+  margin-top: 22px;
+}
+
+.bucket-activity-panel .empty-panel.compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 20px 24px;
+  text-align: center;
+}
+
+.bucket-empty-illustration {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 42%),
+    linear-gradient(180deg, #f4edff 0%, #ecdefd 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.bucket-empty-icon-ring {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #5b239a;
+  color: #fff;
+}
+
+.bucket-activity-panel .empty-panel h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.bucket-activity-panel .empty-panel p {
+  max-width: 26ch;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.deposit-success-stage,
+.allocation-success-stage {
+  padding-top: 112px;
+}

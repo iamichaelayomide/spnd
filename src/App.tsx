@@ -18,7 +18,6 @@ import {
   WalletCards,
   CarFront,
   Wifi,
-  X,
 } from 'lucide-react'
 
 const splashVector = 'http://localhost:3845/assets/df675de77f2fa6b6e87fa3126accb46efdf5ebcb.svg'
@@ -99,7 +98,7 @@ type FormState = {
   completed: boolean
 }
 
-const STORAGE_KEY = 'spnd:onboarding:v3'
+const STORAGE_KEY = 'spnd:onboarding:v4'
 const INTRO_SCREENS: Screen[] = ['intro-plan', 'intro-know', 'intro-purpose', 'intro-setup']
 
 const INTRO_SLIDES = [
@@ -339,14 +338,15 @@ function BucketGlyph({ tone }: { tone: Bucket['tone'] }) {
   return <PiggyBank {...iconProps} />
 }
 
-function PurposeFlowHeader({ onRestart }: { onRestart?: () => void }) {
+function PurposeFlowHeader({ onBack, onRestart }: { onBack?: () => void; onRestart?: () => void }) {
   return (
     <div className="purpose-flow-header">
+      {onBack ? <BackButton onClick={onBack} /> : <span className="purpose-flow-spacer" aria-hidden="true" />}
       <div className="purpose-flow-chip">
         <span className="purpose-flow-chip-icon"><WalletCards size={12} strokeWidth={1.8} aria-hidden="true" /></span>
         <span>Purpose</span>
       </div>
-      {onRestart ? <button className="purpose-flow-restart" type="button" onClick={onRestart}>Restart</button> : null}
+      {onRestart ? <button className="purpose-flow-restart" type="button" onClick={onRestart}>Restart</button> : <span className="purpose-flow-spacer" aria-hidden="true" />}
     </div>
   )
 }
@@ -883,7 +883,7 @@ export default function App() {
       return (
         <div className="screen-content allocation-screen figma-allocation-screen">
           <StatusBar />
-          <PurposeFlowHeader onRestart={hasBuckets ? restartAllocationFlow : undefined} />
+          <PurposeFlowHeader onBack={() => setScreen('home-funded')} onRestart={hasBuckets ? restartAllocationFlow : undefined} />
           <div className="figma-allocation-intro">
             <div className="figma-allocation-copy">
               <span>STEP 3: MATH</span>
@@ -1003,6 +1003,7 @@ export default function App() {
       return (
         <div className="screen-content allocation-success-screen figma-success-screen">
           <StatusBar />
+          <BackButton onClick={() => setScreen('allocation-review')} />
           <div className="allocation-success-stage">
             <div className="allocation-success-art" aria-hidden="true">
               <img src="/spnd/image 16.svg" alt="" />
@@ -1066,8 +1067,11 @@ export default function App() {
               </div>
             ) : (
               <div className="empty-panel compact">
+                <div className="bucket-empty-illustration" aria-hidden="true">
+                  <span className="bucket-empty-icon-ring"><BucketGlyph tone={activeBucket.tone} /></span>
+                </div>
                 <h3>No transfers yet</h3>
-                <p>This bucket is ready. Move money into it when you are ready to fund it.</p>
+                <p>This bucket is ready to receive money when you are ready to fund it.</p>
               </div>
             )}
           </div>
@@ -1132,9 +1136,7 @@ export default function App() {
       return (
         <div className="screen-content deposit-success-screen bucket-transfer-success-screen">
           <StatusBar />
-          <button className="close-button close-button-corner" type="button" onClick={() => setScreen('home-funded')} aria-label="Close">
-            <X size={18} strokeWidth={2} aria-hidden="true" />
-          </button>
+          <BackButton onClick={() => setScreen('bucket-transfer-review')} />
           <div className="deposit-success-stage">
             <div className="deposit-success-icon deposit-success-icon-lucide"><CircleCheckBig size={46} strokeWidth={1.9} aria-hidden="true" /></div>
             <h1>Transfer successful</h1>
@@ -1232,7 +1234,7 @@ export default function App() {
       return (
         <div className="screen-content amount-screen figma-inflow-screen">
           <StatusBar />
-          <PurposeFlowHeader />
+          <PurposeFlowHeader onBack={() => setScreen('select-source')} />
           <div className="figma-inflow-copy">
             <span className="figma-step-kicker">STEP 1: INFLOW</span>
             <h1>How much do you want to allocate?</h1>
@@ -1295,9 +1297,7 @@ export default function App() {
     return (
       <div className="screen-content deposit-success-screen">
         <StatusBar />
-        <button className="close-button close-button-corner" type="button" onClick={() => setScreen('home-funded')} aria-label="Close">
-          <X size={18} strokeWidth={2} aria-hidden="true" />
-        </button>
+        <BackButton onClick={() => setScreen('funds-otp')} />
         <div className="deposit-success-stage">
           <img className="deposit-success-icon" src="/spnd/image 16.svg" alt="" />
           <h1>Deposit successful</h1>
