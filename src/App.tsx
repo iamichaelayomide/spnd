@@ -97,7 +97,7 @@ type FormState = {
   completed: boolean
 }
 
-const STORAGE_KEY = 'spnd:onboarding:v2'
+const STORAGE_KEY = 'spnd:onboarding:v3'
 const INTRO_SCREENS: Screen[] = ['intro-plan', 'intro-know', 'intro-purpose', 'intro-setup']
 
 const INTRO_SLIDES = [
